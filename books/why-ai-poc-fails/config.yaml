@@ -1,0 +1,20 @@
+title: "なぜAI PoCは失敗するのか〜AI Native時代の社内AI運用入門〜"
+summary: |
+  「作った社内AIが現場で使われない」という失敗の構造を解明し、
+  AI Native時代に本当に必要な設計思想を整理する無料Book。
+  問題提起と世界観を中心に、Kindleでの実践編への導入として設計されています。
+topics:
+  - ai
+  - llm
+  - aiops
+  - 機械学習
+published: false
+price: 0
+chapters:
+  - introduction
+  - ch01-why-poc-increases
+  - ch02-why-poc-fails
+  - ch03-ai-native
+  - ch04-fde
+  - ch05-ai-ops
+  - ch06-future
