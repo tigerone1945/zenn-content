@@ -6,6 +6,7 @@ summary: |
 topics: ["ai", "dx", "業務自動化", "dify"]
 published: true
 price: 0
+allow_override: true
 chapters:
   - eaf4e0  # はじめに
   - 73f747  # 第1章
