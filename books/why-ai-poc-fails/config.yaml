@@ -10,6 +10,7 @@ topics:
   - 機械学習
 published: false
 price: 0
+allow_override: true
 chapters:
   - introduction
   - ch01-why-poc-increases
