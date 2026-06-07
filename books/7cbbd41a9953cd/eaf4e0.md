@@ -1,5 +1,6 @@
 ---
 title: "はじめに"
+free: true
 ---
 
 ## このBookを書いた理由

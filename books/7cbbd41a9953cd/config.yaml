@@ -5,7 +5,7 @@ summary: |
   「AIに聞く」から「AIに任せる」へ進みたい人向けです。
 topics: ["ai", "dx", "業務自動化", "dify"]
 published: true
-price: 0
+price: 500
 allow_override: true
 chapters:
   - eaf4e0  # はじめに
