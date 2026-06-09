@@ -467,3 +467,5 @@ Kindle
 組織を動かす変革の戦略』
 
 でも整理しています。
+
+https://www.amazon.co.jp/dp/B0H3GGSZH1
