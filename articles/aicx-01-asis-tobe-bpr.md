@@ -8,7 +8,7 @@ topics:
   - DX
   - BPR
   - KPI
-published: false
+published: true
 ---
 
 # AICX資格体系から学ぶ業務分析
