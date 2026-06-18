@@ -7,7 +7,7 @@ topics:
   - AIエージェント
   - DX
   - AI導入
-published: false
+published: true
 ---
 
 # AICXの5Dモデルを実践ロードマップへ変換してみた
