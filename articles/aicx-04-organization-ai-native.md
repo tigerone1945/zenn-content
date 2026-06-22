@@ -8,7 +8,7 @@ topics:
   - 組織変革
   - ガバナンス
   - AIエージェント
-published: false
+published: true
 ---
 
 # AICXが語る組織変革とAI Native
