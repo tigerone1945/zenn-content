@@ -2,7 +2,7 @@ name: Publish SDD Hub Article at 8AM JST
 
 on:
   schedule:
-    - cron: '0 23 24 6 *'  # 2026-06-25 08:00 JST (UTC+9)
+    - cron: '0 23 25 6 *'  # 2026-06-26 08:00 JST (UTC+9)
   workflow_dispatch:         # 手動テスト用
 
 jobs:
