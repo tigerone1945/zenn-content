@@ -3,7 +3,7 @@ title: "なぜAI PoCは運用で失敗するのか〜仕様駆動開発（SDD）
 emoji: "📐"
 type: "tech"
 topics: ["AI","SDD","AI Native","ClaudeCode","Kiro"]
-published: false
+published: true
 ---
 
 # AI時代の仕様駆動開発（SDD）シリーズ一覧
