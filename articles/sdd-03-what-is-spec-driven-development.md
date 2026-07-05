@@ -8,7 +8,8 @@ topics:
   - Kiro
   - 生成AI
   - 設計
-published: false
+published: true
+published_at: "2026-07-07 08:00"
 ---
 
 # 仕様駆動開発（SDD）とは何か
