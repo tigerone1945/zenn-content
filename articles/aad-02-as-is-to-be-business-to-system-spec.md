@@ -1,5 +1,5 @@
 ---
-title: "第2回 AIエージェントはAs-Is / To-Beから設計する──Business SpecificationからSystem Specificationへ"
+title: "第2回 AIエージェントはAs-Is / To-Beから設計する"
 emoji: "🧩"
 type: "tech"
 topics:
