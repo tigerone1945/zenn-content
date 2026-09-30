@@ -3,11 +3,11 @@ title: "AIエージェント実践ロードマップ──SDD・設計・実装�
 emoji: "🧭"
 type: "tech"
 topics:
-  - AIエージェント
-  - OpenAIAgentsSDK
-  - SDD
-  - ClaudeCode
-  - AWS
+  - "aws"
+  - "aiエージェント"
+  - "sdd"
+  - "claudecode"
+  - "openaiagentssdk"
 published: true
 published_at: "2026-09-15 07:00"
 ---
@@ -95,7 +95,7 @@ AIエージェント技術を小さく実装する
 ↓
 Zenn
 AIエージェント実装実践シリーズ
-第1回〜第16回
+第1回〜第21回
 
 Agent
 → Tools
@@ -422,13 +422,13 @@ agent = Agent(...)
 
 ---
 
-# AIエージェントKindleも公開予定
+# AIエージェントKindleも公開
 
-ZennのAIエージェント設計シリーズで扱ってきた内容を、さらに体系化したKindleも公開予定です。
+ZennのAIエージェント設計シリーズで扱ってきた内容を、さらに体系化したKindleも公開しています。
 
 ## AIエージェント実践入門
 
-**2026年9月末公開予定**
+https://www.amazon.co.jp/dp/B0HJSTH8BP
 
 このKindleでは、
 
@@ -487,7 +487,7 @@ Evaluation
 |---|---|---|
 | AI時代の仕様駆動開発 | SDDそのものを学ぶ | 公開済み |
 | AIエージェント開発のためのケーススタディ設計 | 業務課題を仕様へ変換する | 公開済み |
-| AIエージェント実践入門 | SDDをAIエージェント設計へ適用する | 2026年9月末公開予定 |
+| AIエージェント実践入門 | SDDをAIエージェント設計へ適用する | 公開済み |
 
 学習順としては、
 
@@ -549,13 +549,15 @@ Terraform
 AWS
 ↓
 Monitoring
+↓
+AgentCore
 ```
 
 と、一つずつ機能を追加していきます。
 
 ---
 
-# AIエージェント実装実践シリーズ 全16回
+# AIエージェント実装実践シリーズ 全21回
 
 現時点では、次の構成を予定しています。
 
@@ -577,6 +579,11 @@ Monitoring
 | 第14回 | AWS基盤をコード化する | Terraform |
 | 第15回 | AWSへデプロイする | ECR / ECS / Fargate / RDS |
 | 第16回 | 本番環境を監視する | CloudWatch / Secrets / Evaluation |
+| 第17回 | AgentCore Runtimeへ載せる | AgentCore Runtime / AgentCore CLI |
+| 第18回 | 記憶を管理する | AgentCore Memory |
+| 第19回 | ToolをManaged化する | AgentCore Gateway |
+| 第20回 | 誰の権限で呼ぶかを設計する | AgentCore Identity |
+| 第21回 | 監視・評価を運用Loopにする | AgentCore Observability / Evaluations |
 
 ---
 
@@ -607,6 +614,8 @@ Response
 
 ことです。
 
+https://zenn.dev/tigerone1945/articles/aais-01-agent-runner-csv-sales-data
+
 ---
 
 # 第2回：Function Toolsへ処理を分離する
@@ -632,6 +641,8 @@ Agent
 > **LLMが考える部分と、コードで確実に処理する部分を分離する**
 
 ことです。
+
+https://zenn.dev/tigerone1945/articles/aais-02-function-tools-pandas-csv-analysis
 
 ---
 
@@ -662,6 +673,8 @@ next_action
 
 のように、出力構造を定義します。
 
+https://zenn.dev/tigerone1945/articles/aais-03-structured-output-pydantic
+
 ---
 
 # 第4回：StreamlitでWeb画面を作る
@@ -685,6 +698,8 @@ Agent
 > **Agentそのものだけでなく、人が使うApplication**
 
 として考え始めます。
+
+https://zenn.dev/tigerone1945/articles/aais-04-streamlit-web-ui
 
 ---
 
@@ -713,6 +728,8 @@ Tracing
 ```
 
 役割は異なります。
+
+https://zenn.dev/tigerone1945/articles/aais-05-sessions-tracing
 
 ---
 
@@ -1003,7 +1020,7 @@ RDS PostgreSQL
 
 AWSへデプロイできても、それだけでは運用できません。
 
-最後に、
+そこで、
 
 ```text
 CloudWatch
@@ -1017,7 +1034,7 @@ Evaluation
 
 を扱います。
 
-最終的なイメージは、
+ECS / Fargate版の最終的なイメージは、
 
 ```text
 User
@@ -1049,11 +1066,169 @@ CloudWatch
 
 まで育てます。
 
+ここまでが、汎用的なAWS ApplicationとしてAIエージェントを本番化するルートです。
+
+第17回からは、同じAgentを**Agent専用のManaged Service**で本番化するもう一つのルートを扱います。
+
 ---
 
-# 実装シリーズは4つのPhaseで進む
+# 第17回：AgentCore Runtimeへ載せる
 
-16回を大きく分けると、次の4段階になります。
+第16回までのAgentを、Amazon Bedrock AgentCore Runtimeへ載せます。
+
+```text
+OpenAI Agents SDK
+↓
+BedrockAgentCoreApp
+↓
+AgentCore Runtime
+```
+
+既存のAgent本体は書き直さず、外側にRuntime Adapter（`app.py`）を追加するだけです。
+
+Entrypointも外部入力の入口として、入力検証とエラー処理を入れます。
+
+開発の流れは、
+
+```text
+agentcore dev
+↓
+agentcore deploy
+↓
+agentcore invoke
+```
+
+です。
+
+ECS / Fargateと置き換えるのではなく、
+
+> **汎用AWS Application**と**Agent向けManaged Service**を、2つのProduction Routeとして比較する
+
+ことがこの回のテーマです。
+
+AWS SDKからの呼び出し（Timeout・Retry・IAM）や、RDSへの接続経路も整理します。
+
+---
+
+# 第18回：AgentCore Memoryで記憶を管理する
+
+第5回のSessionsは、同じ会話の文脈を保つ仕組みでした。
+
+しかし、
+
+> **「同じ会話を覚える」と「次の会話でも覚えている」は別**
+
+です。
+
+```text
+Session
+↓
+Short-term Memory
+↓
+Long-term Memory
+```
+
+のように記憶を分け、何を保存し、何を保存しないかをMemory Policyとして設計します。
+
+売上の数値のように変化するBusiness FactはDBを正とし、Memoryには好みなどの安定した情報だけを残します。
+
+MemoryとRAGの違い、Memoryが取れなくてもAgentが動く設計も整理します。
+
+---
+
+# 第19回：AgentCore GatewayでToolをManaged化する
+
+これまでToolはAgentのコード内にFunction Toolとして持っていました。
+
+第19回では、Toolの接続をGatewayへ切り出します。
+
+```text
+Agent
+↓
+AgentCore Gateway
+↓
+Tool / API
+```
+
+GatewayのEndpointはMCP Serverとして扱えます。Side Effectを伴う`create_review_request`をLambda Toolとして切り出し、AgentからMCP経由で呼び出します。
+
+ただし、Toolをすべて移す必要はありません。
+
+```text
+Local Tool
+Gateway Tool
+```
+
+のどちらへ置くかを、判断基準として整理します。
+
+第7回のHuman-in-the-Loopとのつなぎ方も扱います。
+
+---
+
+# 第20回：AgentCore Identityで「誰の権限で呼ぶか」を設計する
+
+Toolを外部へつなぐと、
+
+> **誰の権限で、そのToolを呼ぶのか**
+
+が問題になります。
+
+```text
+Inbound Auth
+誰がAgentを呼ぶか
+
+Outbound Auth
+Agentが誰として外部Toolを呼ぶか
+```
+
+を分けて考え、API Keyの直書きをやめてCredential Providerへ移します。
+
+権限の判定はPromptではなくCodeで行う、という原則も扱います。
+
+第16回のSecrets Managerとの違い、OAuth Consent、Workload Identity、Gateway・Identity・HITLの役割分担も整理します。
+
+---
+
+# 第21回：AgentCore ObservabilityとEvaluationsで監視・評価する
+
+最後に、第16回で行った監視と評価を、AgentCoreのManaged Capabilityで拡張して比較します。
+
+```text
+Runtime
+Memory
+Gateway
+Identity
+↓
+Observability
+↓
+Evaluations
+↓
+改善
+```
+
+Traceから遅延やErrorの原因の層（Runtime / Gateway / Memory / Auth）を絞り込みます。
+
+Custom Evaluatorで売上分析Agent向けの評価軸を作り、Code-basedとLLM-as-a-Judgeを使い分けたうえで、
+
+```text
+観測する
+評価する
+改善する
+```
+
+というLoopを回します。見つけた失敗はEvaluation Caseへ戻します。
+
+第1回の小さなAgentが、
+
+> **ECS / Fargate版とAgentCore版、2つの本番ルートを比較できるAI Application**
+
+まで育ちます。
+
+---
+
+# 実装シリーズは5つのPhaseで進む
+
+21回を大きく分けると、次の5段階になります。
 
 ## Phase 1：Single Agent
 
@@ -1124,11 +1299,31 @@ Multi-Agent
 第16回 Monitoring
 ```
 
-最後に、
-
 > **ローカルで動くAgentをCloud上で運用できる構成へ育てる**
 
 ところまで進みます。
+
+---
+
+## Phase 5：AgentCore
+
+```text
+第17回 Runtime
+↓
+第18回 Memory
+↓
+第19回 Gateway
+↓
+第20回 Identity
+↓
+第21回 Observability / Evaluations
+```
+
+同じAgentを、
+
+> **Agent専用のManaged Serviceで本番化するもう一つのルート**
+
+として比較します。
 
 ---
 
@@ -1671,7 +1866,7 @@ https://zenn.dev/tigerone1945/articles/aad-00-hub-system-specification-series
 ### Kindle
 **AIエージェント実践入門**
 
-**2026年9月末公開予定**
+https://www.amazon.co.jp/dp/B0HJSTH8BP
 
 ```text
 Business Problem
@@ -1695,7 +1890,7 @@ Evaluation
 
 → **Zenn AIエージェント実装実践シリーズ**
 
-第1回から第16回まで、
+第1回から第21回まで、
 
 ```text
 Agent
@@ -1723,6 +1918,8 @@ Terraform
 AWS
 ↓
 Monitoring
+↓
+AgentCore
 ```
 
 と段階的に進みます。
@@ -1773,8 +1970,9 @@ AWS
 今後追加予定：
 
 - AIエージェント実践入門 Kindle
-- AIエージェント実装実践 第1回〜第16回
-- Udemy講座4 BUILD
+- AIエージェント実装実践 第1回〜第21回
+- Kindle② BUILD Design
+- Udemy講座4 BUILD Implementation
 - Kindle③ VALIDATE Design
 - Udemy講座5 VALIDATE Implementation
 - Kindle④ OPERATE Design
@@ -1864,7 +2062,9 @@ Kindle / Udemy OPERATE
 
 です。
 
-まずは小さなAgentを1つ動かすところから始め、最終的には第16回でAWS上の運用までつなげていきます。
+まずは小さなAgentを1つ動かすところから始め、第16回でAWS上の運用まで、第21回でAgentCoreによる本番化までつなげていきます。
+
+https://zenn.dev/tigerone1945/articles/aais-01-agent-runner-csv-sales-data
 
 ---
 
@@ -1896,7 +2096,7 @@ https://zenn.dev/tigerone1945/articles/aad-00-hub-system-specification-series
 
 ## AIエージェント実践入門 Kindle
 
-**2026年9月末公開予定**
+https://www.amazon.co.jp/dp/B0HJSTH8BP
 
 業務課題・SDD・Agent Design・OpenAI Agents SDK・Evaluationまでを体系的に扱います。
 
@@ -1907,7 +2107,7 @@ https://zenn.dev/tigerone1945/articles/aad-00-hub-system-specification-series
 ### 第1回
 **最小構成から始めるAIエージェント実装**
 
-※ 公開後リンク追加
+https://zenn.dev/tigerone1945/articles/aais-01-agent-runner-csv-sales-data
 
 ---
 
