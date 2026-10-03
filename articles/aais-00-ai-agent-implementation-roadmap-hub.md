@@ -1,5 +1,5 @@
 ---
-title: "AIエージェント実践ロードマップ──SDD・設計・実装・PoC・AWS本番まで"
+title: "AIエージェント実践ロードマップ──SDD・設計・実装・PoC・AWS・AgentCore本番まで"
 emoji: "🧭"
 type: "tech"
 topics:
@@ -32,13 +32,14 @@ Multi-Agent
 FastAPI
 Docker
 AWS
+AgentCore
 ```
 
 と知識がバラバラになりがちです。
 
 そこでこの記事では、これまで公開してきたKindle・Zennシリーズと、これから公開するZenn実装シリーズ・Kindle・Udemyを、
 
-> **AIエージェントを仕様から設計し、実装し、PoCを経てAWS本番環境へ育てるための学習ロードマップ**
+> **AIエージェントを仕様から設計し、実装し、PoCを経てAWS / AgentCore本番環境へ育てるための学習ロードマップ**
 
 として整理します。
 
@@ -86,7 +87,7 @@ AIエージェント設計シリーズ
 
 Kindle
 AIエージェント実践入門
-2026年9月末公開予定
+公開済み
 
         ↓
 
@@ -107,6 +108,7 @@ Agent
 → PostgreSQL
 → Terraform
 → AWS
+→ AgentCore
 
         ↓
 
@@ -456,7 +458,7 @@ Evaluation
 
 > **業務課題を、実装可能なAIエージェントへ変換する方法**
 
-を体系的に扱う予定です。
+を体系的に扱います。
 
 単なるOpenAI Agents SDKの機能解説ではありません。
 
@@ -1360,11 +1362,17 @@ Safety
 ↓
 Database
 ↓
+Multi-Agent
+↓
 API
 ↓
 Docker
 ↓
+PostgreSQL
+↓
 AWS
+↓
+AgentCore
 ```
 
 > **技術を一つずつどう実装するのか**
@@ -1693,6 +1701,14 @@ Docker
 PostgreSQL
 ↓
 AWS
+↓
+Monitoring
+↓
+AgentCore Runtime
+↓
+Memory / Gateway / Identity
+↓
+Observability / Evaluations
 ```
 
 という順番で学べます。
@@ -1944,7 +1960,9 @@ SDDから問い合わせトリアージAIエージェントを実装します。
 
 ---
 
-## AIエージェントをAWSで本番化したい
+## AIエージェントを本番化したい
+
+### 汎用AWS Applicationとして本番化する
 
 → **Kindle④：OPERATE Design**
 
@@ -1961,22 +1979,41 @@ AWS
 
 を使って本番システムへ発展させます。
 
+### Agent専用Managed Serviceとして本番化する
+
+→ **Zenn 第17回〜第21回：Amazon Bedrock AgentCore**
+
+```text
+Runtime
+↓
+Memory
+↓
+Gateway
+↓
+Identity
+↓
+Observability / Evaluations
+```
+
+ECS / Fargate版とAgentCore版を、2つのProduction Routeとして比較できる構成にします。
+
 ---
 
 # 今後の更新予定
 
 このハブ記事は随時更新します。
 
-今後追加予定：
+今後更新・追加予定：
 
-- AIエージェント実践入門 Kindle
-- AIエージェント実装実践 第1回〜第21回
+- AIエージェント実装実践シリーズ 第1回〜第21回の公開状況・リンク
 - Kindle② BUILD Design
 - Udemy講座4 BUILD Implementation
 - Kindle③ VALIDATE Design
 - Udemy講座5 VALIDATE Implementation
 - Kindle④ OPERATE Design
 - Udemy講座6 OPERATE Implementation
+
+※ 『AIエージェント実践入門』は公開済みのため、上のSTEP 3および「このハブ記事の使い方」から参照できます。
 
 公開した記事・教材は、このページからアクセスできるように順次リンクを追加していきます。
 
@@ -2020,6 +2057,12 @@ TerraformでAWS基盤を作る
 AWSへデプロイする
 ↓
 監視・運用する
+↓
+AgentCore Runtimeへ載せる
+↓
+Memory / Gateway / Identityを設計する
+↓
+Observability / Evaluationsで改善Loopを回す
 ```
 
 まで続きます。
@@ -2050,19 +2093,17 @@ Kindle / Udemy OPERATE
 
 ことを目指します。
 
-次回からは、新しい
+現在、
 
 # AIエージェント実装実践シリーズ
 
-を開始します。
+を順次公開しています。
 
-第1回は、
+第1回の
 
 > **最小構成から始めるAIエージェント実装**
 
-です。
-
-まずは小さなAgentを1つ動かすところから始め、第16回でAWS上の運用まで、第21回でAgentCoreによる本番化までつなげていきます。
+から小さなAgentを育て、第16回でAWS上の運用へ、第17〜21回でAgentCoreを使ったもう一つの本番ルートへつなげていきます。
 
 https://zenn.dev/tigerone1945/articles/aais-01-agent-runner-csv-sales-data
 
