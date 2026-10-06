@@ -752,6 +752,8 @@ AIエージェントを業務で利用する場合、
 
 などを制御します。
 
+https://zenn.dev/tigerone1945/articles/aais-06-guardrails
+
 ---
 
 # 第7回：Human-in-the-Loopを入れる
