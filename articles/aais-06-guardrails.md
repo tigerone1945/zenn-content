@@ -804,6 +804,16 @@ Human
 
 ---
 
+# 関連記事・教材
+
+## AIエージェント実践ロードマップ
+
+SDD・設計・実装・PoC・AWS本番までの全体像はこちら。
+
+https://zenn.dev/tigerone1945/articles/aais-00-ai-agent-implementation-roadmap-hub
+
+---
+
 # 参考
 
 OpenAI Agents SDK Guardrails：
