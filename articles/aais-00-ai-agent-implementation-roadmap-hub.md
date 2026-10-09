@@ -780,6 +780,8 @@ High Risk → Human Review
 
 を扱います。
 
+https://zenn.dev/tigerone1945/articles/aais-07-human-in-the-loop
+
 ---
 
 # 第8回：SQLiteでデータを永続化する
