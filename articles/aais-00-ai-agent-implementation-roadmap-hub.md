@@ -123,7 +123,7 @@ BUILD
 STEP 6
 PoCとして検証する
 ↓
-Kindle③
+Kindle 5（PoC-Kindle）
 VALIDATE Design
 
 ＋
@@ -136,7 +136,7 @@ VALIDATE Implementation
 STEP 7
 AWS本番環境へ育てる
 ↓
-Kindle④
+Kindle 6（Prod-Kindle）
 OPERATE Design
 
 ＋
@@ -155,58 +155,25 @@ OPERATE Implementation
 
 ---
 
-# Zenn・Kindle・Udemyの役割
+# Zenn・note・Kindle・Udemyの役割（2026年10月改訂）
 
-私は、それぞれの媒体を次のように使い分けています。
+学習する技術と解決したい業務課題によって、入口と教材の役割を分けています。
 
-| 媒体 | 役割 | 主に扱うこと |
+| 媒体 | 主な役割 | 読者が得るもの |
 |---|---|---|
-| Zenn | 小さく理解する | 1記事1テーマの設計・実装 |
-| Kindle | 体系化する | なぜその設計にするのか |
-| Udemy | 実際に作る | 一連の業務システム実装 |
+| **Zenn** | 技術のHow | OpenAI Agents SDKなどを、1記事1テーマで小さく実装する手順 |
+| **note（水曜）** | 設計のWhy | なぜその技術が必要か、どこに境界や責務を設けるか |
+| **note（日曜）** | 業務課題・選定 | 導入判断、FW選択、データ分析から施策・効果検証まで |
+| **Kindle（FW別）** | 体系的な実装教材 | 動く完成コード、設計、再現手順、検証結果を一冊で学べる |
+| **Kindle（データ分析）** | 業務課題の解決 | ChatGPT中心の分析、原因仮説、改善施策、効果検証計画まで |
+| **Udemy** | 独自の実践演習 | 構築の過程、エラー調査、自力での改修。需要と差別化がある場合に制作 |
 
-同じFastAPIを扱う場合でも、目的は違います。
+**Kindle＝設計だけ、Udemy＝実装だけ、という区分ではありません。**
+FW別Kindleは書籍だけで再現できる実装教材とし、Udemyは動画ならではのデバッグや要件変更演習で差別化します。
 
-Zennでは、
+例えばFastAPIは、Zennで単独の実装要点を確認し、Kindleで構成・完成コードと再現方法を学び、必要ならUdemyで実装・失敗・改善を体験する関係です。
 
-```text
-Agent
-↓
-FastAPI
-↓
-APIとして呼び出す
-```
-
-ところを小さく実装します。
-
-Kindleでは、
-
-```text
-なぜFrontendとAgentを分離するのか
-なぜAPI Boundaryが必要なのか
-```
-
-を設計として考えます。
-
-Udemyでは、
-
-```text
-FastAPI
-↓
-Endpoint
-↓
-Agent
-↓
-Error Handling
-↓
-Test
-↓
-Web UI
-↓
-Database
-```
-
-まで一連のApplicationとして実装します。
+**このハブは「AIエージェントの実装・学習」の総合入口**です。データ分析から施策立案までを扱うシリーズは、別の「AIデータ分析・課題解決 noteハブ」を主導線とします。noteハブの公開URLは確定後に追加します。
 
 ---
 
@@ -1333,100 +1300,14 @@ Multi-Agent
 
 ---
 
-# KindleとZenn実装シリーズの違い
+# Kindle・Zenn・Udemyは何が違うか
 
-KindleとZenn実装シリーズでは、主目的が違います。
+- **Zennの実装21回**：同じ売上・受注データを使い、Agent / Tools / Guardrails / Database / Multi-Agent / AWS / AgentCoreの実装を段階的に学びます。
+- **Agentcore-kindle（Kindle 7／制作・発売判断中）**：この21回をOpenAI Agents SDKで体系化し、書籍単独で動かせる完成コード・再現手順・検証を提供する別企画です。
+- **トリアージUdemy講座4〜6**：問い合わせ業務をBUILD→VALIDATE→OPERATEまで育てる、**売上分析21回とは別題材**の実践講座です。
+- **Udemy講座7（AgentCore／別企画）**：トリアージ講座6のCompleted Source Snapshotから始め、Bedrock AgentCoreで本番運用する内容です。**Agentcore-kindleの動画版ではありません。**
 
-## Kindle
-
-```text
-Business Problem
-↓
-System Specification
-↓
-Technology Constraints
-↓
-SDD
-↓
-Agent Design
-```
-
-> **何を、なぜ作るのか**
-
-を中心に扱います。
-
-## Zenn実装シリーズ
-
-```text
-Agent
-↓
-Tools
-↓
-Safety
-↓
-Database
-↓
-Multi-Agent
-↓
-API
-↓
-Docker
-↓
-PostgreSQL
-↓
-AWS
-↓
-AgentCore
-```
-
-> **技術を一つずつどう実装するのか**
-
-を中心に扱います。
-
----
-
-# Zenn実装シリーズとUdemyの違い
-
-ZennでAWSまで扱っても、Udemyとは役割が異なります。
-
-Zennでは、
-
-```text
-技術を理解する
-↓
-小さく実装する
-↓
-動作を確認する
-```
-
-ことを目的とします。
-
-Udemyでは、問い合わせトリアージAIエージェントという1つの業務システムを、
-
-```text
-BUILD
-↓
-VALIDATE
-↓
-OPERATE
-```
-
-まで育てます。
-
-つまり、
-
-```text
-Zenn
-＝技術を段階的に理解する
-
-Kindle
-＝設計を体系的に理解する
-
-Udemy
-＝業務システムとして完成させる
-```
-
-という役割分担です。
+FW別Udemyは書籍発売に合わせて自動的に作りません。開始・途中・完成スナップショット、障害再現、デバッグ、書籍にない改修演習、テスト・正解例、独立受講可能性を満たした場合に制作判断を行います。
 
 ---
 
@@ -1480,9 +1361,9 @@ Test
 
 ---
 
-# Kindle③：VALIDATE Design
+# Kindle 5（PoC-Kindle）：VALIDATE Design
 
-Kindle③では、
+Kindle 5（PoC-Kindle）では、
 
 > **既存システムをPoCへ育てるため、SDDをどう更新するか**
 
@@ -1520,7 +1401,7 @@ PoC化とは、単にWeb画面を追加することではありません。
 
 # Udemy講座5：VALIDATE Implementation
 
-Kindle③で作成したUpdated SDDに従い、
+Kindle 5（PoC-Kindle）で作成したUpdated SDDに従い、
 
 ```text
 FastAPI
@@ -1558,9 +1439,9 @@ PoCで価値を確認できたら、本番化へ進みます。
 
 ---
 
-# Kindle④：OPERATE Design
+# Kindle 6（Prod-Kindle）：OPERATE Design
 
-Kindle④では、
+Kindle 6（Prod-Kindle）では、
 
 > **PoCをProductionへ育てるため、SDDをどう更新するか**
 
@@ -1819,6 +1700,47 @@ Code
 
 ---
 
+# 次の技術シリーズ：CrewAIとフレームワーク選定
+
+OpenAI Agents SDKの実装21回を最優先で完走します。**CrewAI連載を途中へ割り込ませません。**
+
+| 教材・連載 | 位置づけ | 公開・制作方針 |
+|---|---|---|
+| **CrewAI-Kindle** | Agent / Task / Tool / Role / Crew / Process / Flow / Evaluationの完成コード付き技術書 | 原稿とコードを検証し、品質確認後に発売を判断。Zenn21回完結を待つ必要はありません |
+| **CrewAIのZenn短期連載** | ①Agent/Task/Tool ②Role・Crew ③Process ④Flow・状態・承認 ⑤Trace・Evaluation | 21回完結後に開始する5回案。2027年1月19日（火）開始は**暫定・条件付き** |
+| **CrewAI-Udemy** | 構築・失敗再現・改修を含む実践演習 | Kindleを読み上げる動画にはせず、需要と演習独自性が整った場合だけ制作 |
+| **Google ADK / LangGraph** | 次の新規FW候補 | 実装検証と比較の後で、採用する側だけを教材化。発売未決定 |
+
+**FWが人気だからという理由だけで商品を増やさない**ことを基本とします。完成コードの品質、学習成果、需要、保守負担を確認します。
+
+---
+
+# noteと別ハブへの導線
+
+水曜noteでは、火曜Zennのコードを転載せず、「なぜ必要か」「何をAIに任せてよいか」「業務のどこに境界を置くか」を説明します。2026年10月は入門編を継続し、11月4日（水）・11日（水）・18日（水）は過去のZenn回を複数まとめた設計記事、**11月25日（水）から火曜Zennと1対1同期する計画**です。
+
+日曜noteは独立した業務設計・FW比較・データ分析の記事を扱います。**データ分析は別ライン**として、記事→「AIデータ分析・課題解決 noteハブ」→業務課題別Kindleへ誘導します。
+
+このZennハブからnoteへは、対応する記事・ハブが**公開され、URLを確認できた時点**でリンクを追加します。未公開原稿への架空リンクは設置しません。
+
+---
+
+# 商品の選び方と現在の計画
+
+| 学びたいこと | 主な教材・商品 | 状態・注意点 |
+|---|---|---|
+| 仕様駆動開発の考え方 | 『AI時代の仕様駆動開発』 | 公開済み（下部にリンク） |
+| 業務課題をSDDへ変える | 『AIエージェント開発のためのケーススタディ設計』 | 公開済み（下部にリンク） |
+| 業務AIエージェントの設計 | 『AIエージェント実践入門』 | 公開済み（下部にリンク） |
+| Agents SDKを小さく実装 | Zenn実装実践シリーズ全21回 | 火曜連載中。公開回のみ順次リンク追加 |
+| 売上分析Agentの完成実装を体系化 | Agentcore-kindle | 制作・整合確認中。販売ページ確定まで購入リンクを載せない |
+| 問い合わせトリアージを構築・PoC・AWS本番化 | Kindle 4〜6／Udemy講座4〜6 | 対応する教材の公開状況を確認してリンクを追加 |
+| AgentCoreでトリアージAgentを運用 | Udemy講座7 | Kindle 7とは別題材。公開後リンク追加 |
+| CrewAIの体系的実装 | CrewAI-Kindle | 品質検証後に発売判断。Udemyは条件付き |
+| データ分析から施策・検証計画 | 分析noteハブ／データ分析Kindle | 独立した商品ライン。実装21回とは混同しない |
+
+※ 2026年10月26日（月）に予約販売を予定している**ダミー売上分析Kindleは、2026年10月15日時点でKDPレビュー中**です。予約受付・販売開始が確認できるまでは購入可能とは案内しません。こちらの商品への主導線は**データ分析noteハブ**です。
+
 # このハブ記事の使い方
 
 目的に応じて、読む場所を選んでください。
@@ -1956,7 +1878,7 @@ SDDから問い合わせトリアージAIエージェントを実装します。
 
 ## AIエージェントをPoC化したい
 
-→ **Kindle③：VALIDATE Design**
+→ **Kindle 5（PoC-Kindle）：VALIDATE Design**
 
 → **Udemy講座5：VALIDATE Implementation**
 
@@ -1968,7 +1890,7 @@ SDDから問い合わせトリアージAIエージェントを実装します。
 
 ### 汎用AWS Applicationとして本番化する
 
-→ **Kindle④：OPERATE Design**
+→ **Kindle 6（Prod-Kindle）：OPERATE Design**
 
 → **Udemy講座6：OPERATE Implementation**
 
@@ -2005,21 +1927,17 @@ ECS / Fargate版とAgentCore版を、2つのProduction Routeとして比較で�
 
 # 今後の更新予定
 
-このハブ記事は随時更新します。
+このハブは**新しい記事・商品が公開されたときに更新する常設の総合入口**です。
 
-今後更新・追加予定：
+1. **最優先**：OpenAI Agents SDK第1〜21回の公開状況と個別リンクを追加（火曜連載を完走）。
+2. 対応する水曜noteが公開されたら、各技術のWhy記事と相互リンクする。
+3. **Agentcore-kindle**の品質・21回との整合を確認し、販売開始後に商品リンクを追加する。
+4. **CrewAI-Kindle**はコードと原稿の検証を経て発売可否を判断。CrewAI Zenn5回案は21回完走後に開始条件を確認する。
+5. 必要に応じて**CrewAI実装ハブ**を設け、本ハブから誘導する。Google ADK・LangGraphは採用決定前にハブを量産しない。
+6. トリアージUdemy講座4〜7と対応Kindleは、公開した商品だけリンクを追加する。
+7. **AIデータ分析・課題解決noteハブ**は別ラインとして案内し、売上分析Kindleへの導線はそちらへ集約する。
 
-- AIエージェント実装実践シリーズ 第1回〜第21回の公開状況・リンク
-- Kindle② BUILD Design
-- Udemy講座4 BUILD Implementation
-- Kindle③ VALIDATE Design
-- Udemy講座5 VALIDATE Implementation
-- Kindle④ OPERATE Design
-- Udemy講座6 OPERATE Implementation
-
-※ 『AIエージェント実践入門』は公開済みのため、上のSTEP 3および「このハブ記事の使い方」から参照できます。
-
-公開した記事・教材は、このページからアクセスできるように順次リンクを追加していきます。
+**運用原則**：主CTAは読者の学習目的に合うリンクを1つに絞る。未発売の商品を販売中と書かない。既存の記事URL・slugは維持する。
 
 ---
 
