@@ -827,3 +827,9 @@ https://www.amazon.co.jp/dp/B0HBQ32KCQ
 ## Kindle：AIエージェント開発のためのケーススタディ設計
 
 https://www.amazon.co.jp/dp/B0HJMM4JF7
+
+---
+
+## シリーズ総合ハブ
+
+[AIエージェント実践ロードマップ──SDD・設計・実装・PoC・AWS・AgentCore本番まで](https://zenn.dev/tigerone1945/articles/aais-00-ai-agent-implementation-roadmap-hub)
