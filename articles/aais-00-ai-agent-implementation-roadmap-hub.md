@@ -528,31 +528,31 @@ AgentCore
 
 # AIエージェント実装実践シリーズ 全21回
 
-現時点では、次の構成を予定しています。
+2026年10月16日（金）時点で、**第1〜8回は公開済み、第9〜21回は公開予定**です。第8回以降は原則として**毎週火曜日に1回**公開します（第1〜7回は火曜・金曜中心の公開実績）。今後の公開予定は変更される場合があります。
 
-| 回 | テーマ | 主な技術 |
-|---:|---|---|
-| 第1回 | 最小AIエージェントを作る | Agent / Runner |
-| 第2回 | 処理をToolへ分離する | Function Tools |
-| 第3回 | 出力を構造化する | Structured Output / Pydantic |
-| 第4回 | Web画面を作る | Streamlit |
-| 第5回 | 会話と実行を追跡する | Sessions / Tracing |
-| 第6回 | 危険な処理を止める | Guardrails |
-| 第7回 | 人の判断を入れる | HITL |
-| 第8回 | データを永続化する | SQLite |
-| 第9回 | 複数Tableを安全に扱う | Join Validation |
-| 第10回 | Agentを役割分担する | Multi-Agent |
-| 第11回 | AIエージェントをAPI化する | FastAPI |
-| 第12回 | 実行環境をContainer化する | Docker / Docker Compose |
-| 第13回 | 本番DBへ移行する | PostgreSQL |
-| 第14回 | AWS基盤をコード化する | Terraform |
-| 第15回 | AWSへデプロイする | ECR / ECS / Fargate / RDS |
-| 第16回 | 本番環境を監視する | CloudWatch / Secrets / Evaluation |
-| 第17回 | AgentCore Runtimeへ載せる | AgentCore Runtime / AgentCore CLI |
-| 第18回 | 記憶を管理する | AgentCore Memory |
-| 第19回 | ToolをManaged化する | AgentCore Gateway |
-| 第20回 | 誰の権限で呼ぶかを設計する | AgentCore Identity |
-| 第21回 | 監視・評価を運用Loopにする | AgentCore Observability / Evaluations |
+| 回 | テーマ | 主な技術 | 状況 |
+|---:|---|---|---|
+| 第1回 | 最小AIエージェントを作る | Agent / Runner | 公開済み |
+| 第2回 | 処理をToolへ分離する | Function Tools | 公開済み |
+| 第3回 | 出力を構造化する | Structured Output / Pydantic | 公開済み |
+| 第4回 | Web画面を作る | Streamlit | 公開済み |
+| 第5回 | 会話と実行を追跡する | Sessions / Tracing | 公開済み |
+| 第6回 | 危険な処理を止める | Guardrails | 公開済み |
+| 第7回 | 人の判断を入れる | HITL | 公開済み |
+| 第8回 | データを永続化する | SQLite | 公開済み |
+| 第9回 | 複数Tableを安全に扱う | Join Validation | 公開予定 |
+| 第10回 | Agentを役割分担する | Multi-Agent | 公開予定 |
+| 第11回 | AIエージェントをAPI化する | FastAPI | 公開予定 |
+| 第12回 | 実行環境をContainer化する | Docker / Docker Compose | 公開予定 |
+| 第13回 | 本番DBへ移行する | PostgreSQL | 公開予定 |
+| 第14回 | AWS基盤をコード化する | Terraform | 公開予定 |
+| 第15回 | AWSへデプロイする | ECR / ECS / Fargate / RDS | 公開予定 |
+| 第16回 | 本番環境を監視する | CloudWatch / Secrets / Evaluation | 公開予定 |
+| 第17回 | AgentCore Runtimeへ載せる | AgentCore Runtime / AgentCore CLI | 公開予定 |
+| 第18回 | 記憶を管理する | AgentCore Memory | 公開予定 |
+| 第19回 | ToolをManaged化する | AgentCore Gateway | 公開予定 |
+| 第20回 | 誰の権限で呼ぶかを設計する | AgentCore Identity | 公開予定 |
+| 第21回 | 監視・評価を運用Loopにする | AgentCore Observability / Evaluations | 公開予定 |
 
 ---
 
@@ -776,6 +776,9 @@ Database
 ここではSQLiteを使います。
 
 SQLiteは、小規模ApplicationやPoCで扱いやすいデータベースです。
+
+
+[第8回：CSVからSQLiteへ──AIエージェントの業務データを永続化する](https://zenn.dev/tigerone1945/articles/aais-08-csv-to-sqlite)
 
 ---
 
@@ -2067,10 +2070,9 @@ https://www.amazon.co.jp/dp/B0HJSTH8BP
 
 ## AIエージェント実装実践シリーズ
 
-### 第1回
-**最小構成から始めるAIエージェント実装**
+**第1〜8回は公開済みです。** 上記各回の見出しから内容と記事URLを確認できます。
 
-https://zenn.dev/tigerone1945/articles/aais-01-agent-runner-csv-sales-data
+[第1回：Agent / Runner](https://zenn.dev/tigerone1945/articles/aais-01-agent-runner-csv-sales-data) ／ [第8回：SQLite](https://zenn.dev/tigerone1945/articles/aais-08-csv-to-sqlite)
 
 ---
 
