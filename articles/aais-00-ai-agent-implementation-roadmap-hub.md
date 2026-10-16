@@ -1306,9 +1306,9 @@ Multi-Agent
 # Kindle・Zenn・Udemyは何が違うか
 
 - **Zennの実装21回**：同じ売上・受注データを使い、Agent / Tools / Guardrails / Database / Multi-Agent / AWS / AgentCoreの実装を段階的に学びます。
-- **Agentcore-kindle（Kindle 7／制作・発売判断中）**：この21回をOpenAI Agents SDKで体系化し、書籍単独で動かせる完成コード・再現手順・検証を提供する別企画です。
+- **OpenAI-SDK-Kindle（v2.0／制作中）**：正式タイトル候補は『OpenAI Agents SDKで育てるAIエージェント』、副題は「売上データ分析からMulti-Agent・Docker・AWS本番運用まで」。Zenn第1〜16回相当の技術を中心に、完成コード・再現手順・検証を体系化します。**Amazon Bedrock AgentCoreは本書v2.0の対象外**です。
 - **トリアージUdemy講座4〜6**：問い合わせ業務をBUILD→VALIDATE→OPERATEまで育てる、**売上分析21回とは別題材**の実践講座です。
-- **Udemy講座7（AgentCore／別企画）**：トリアージ講座6のCompleted Source Snapshotから始め、Bedrock AgentCoreで本番運用する内容です。**Agentcore-kindleの動画版ではありません。**
+- **Udemy講座7（AgentCore／別企画）**：トリアージ講座6のCompleted Source Snapshotから始め、Bedrock AgentCoreで本番運用する内容です。**OpenAI-SDK-Kindleには含めないAgentCoreの実装・運用を扱う別題材の講座**であり、書籍の動画版ではありません。
 
 FW別Udemyは書籍発売に合わせて自動的に作りません。開始・途中・完成スナップショット、障害再現、デバッグ、書籍にない改修演習、テスト・正解例、独立受講可能性を満たした場合に制作判断を行います。
 
@@ -1736,13 +1736,13 @@ OpenAI Agents SDKの実装21回を最優先で完走します。**CrewAI連載�
 | 業務課題をSDDへ変える | 『AIエージェント開発のためのケーススタディ設計』 | 公開済み（下部にリンク） |
 | 業務AIエージェントの設計 | 『AIエージェント実践入門』 | 公開済み（下部にリンク） |
 | Agents SDKを小さく実装 | Zenn実装実践シリーズ全21回 | 火曜連載中。公開回のみ順次リンク追加 |
-| 売上分析Agentの完成実装を体系化 | Agentcore-kindle | 制作・整合確認中。販売ページ確定まで購入リンクを載せない |
+| 売上分析Agentの第1〜16回相当の実装を体系化 | OpenAI-SDK-Kindle（v2.0） | 制作・整合確認中。AgentCoreは対象外。販売ページ確定まで購入リンクを載せない |
 | 問い合わせトリアージを構築・PoC・AWS本番化 | Kindle 4〜6／Udemy講座4〜6 | 対応する教材の公開状況を確認してリンクを追加 |
-| AgentCoreでトリアージAgentを運用 | Udemy講座7 | Kindle 7とは別題材。公開後リンク追加 |
+| AgentCoreでトリアージAgentを運用 | Udemy講座7 | OpenAI-SDK-Kindleとは別題材・別範囲。公開後リンク追加 |
 | CrewAIの体系的実装 | CrewAI-Kindle | 品質検証後に発売判断。Udemyは条件付き |
 | データ分析から施策・検証計画 | 分析noteハブ／データ分析Kindle | 独立した商品ライン。実装21回とは混同しない |
 
-※ 2026年10月26日（月）に予約販売を予定している**ダミー売上分析Kindleは、2026年10月15日時点でKDPレビュー中**です。予約受付・販売開始が確認できるまでは購入可能とは案内しません。こちらの商品への主導線は**データ分析noteハブ**です。
+※ **ダミー売上データ分析KindleはAmazonで予約受付中**です（[Amazon商品ページ](https://www.amazon.co.jp/dp/B0HL4PS2QC)）。こちらはChatGPTを中心とした分析・課題解決の書籍で、OpenAI-SDK-Kindleとは別商品です。主導線は**データ分析noteハブ**とし、販売条件・発売予定日はAmazonの商品ページで確認してください。
 
 # このハブ記事の使い方
 
@@ -1934,7 +1934,7 @@ ECS / Fargate版とAgentCore版を、2つのProduction Routeとして比較で�
 
 1. **最優先**：OpenAI Agents SDK第1〜21回の公開状況と個別リンクを追加（火曜連載を完走）。
 2. 対応する水曜noteが公開されたら、各技術のWhy記事と相互リンクする。
-3. **Agentcore-kindle**の品質・21回との整合を確認し、販売開始後に商品リンクを追加する。
+3. **OpenAI-SDK-Kindle（v2.0）**の品質とZenn第1〜16回相当の技術範囲との整合を確認し、販売開始後に商品リンクを追加する。AgentCoreは書籍に含めない。
 4. **CrewAI-Kindle**はコードと原稿の検証を経て発売可否を判断。CrewAI Zenn5回案は21回完走後に開始条件を確認する。
 5. 必要に応じて**CrewAI実装ハブ**を設け、本ハブから誘導する。Google ADK・LangGraphは採用決定前にハブを量産しない。
 6. トリアージUdemy講座4〜7と対応Kindleは、公開した商品だけリンクを追加する。
