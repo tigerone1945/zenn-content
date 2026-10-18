@@ -1742,7 +1742,7 @@ OpenAI Agents SDKの実装21回を最優先で完走します。**CrewAI連載�
 | CrewAIの体系的実装 | CrewAI-Kindle | 10/31（土）発売予定・KDPレビュー中。Amazon商品ページ確認後にリンク追加。Udemyは条件付き |
 | データ分析から施策・検証計画 | 分析noteハブ／データ分析Kindle | 独立した商品ライン。実装21回とは混同しない |
 
-※ **ダミー売上データ分析KindleはAmazonで予約受付中**です（[Amazon商品ページ](https://www.amazon.co.jp/dp/B0HL4PS2QC)）。こちらはChatGPTを中心とした分析・課題解決の書籍で、OpenAI-SDK-Kindleとは別商品です。主導線は**データ分析noteハブ**とし、販売条件・発売予定日はAmazonの商品ページで確認してください。
+※ **『ChatGPTで学ぶ問題解決型データ分析 実践入門』はAmazonで予約受付中**です（2026年10月18日（日）に「予約注文」表示を確認／[Amazon商品ページ](https://www.amazon.co.jp/dp/B0HL4PS2QC)）。300件の受注データを使ったChatGPT中心の分析・施策立案・効果評価計画を扱います。**OpenAI-SDK-Kindle・CrewAI-Kindleとは別の商品**です。主導線は**データ分析noteハブ**とし、最新の発売日・価格・予約条件はAmazonの商品ページをご確認ください。
 
 # このハブ記事の使い方
 
