@@ -1306,7 +1306,7 @@ Multi-Agent
 # Kindle・Zenn・Udemyは何が違うか
 
 - **Zennの実装21回**：同じ売上・受注データを使い、Agent / Tools / Guardrails / Database / Multi-Agent / AWS / AgentCoreの実装を段階的に学びます。
-- **OpenAI-SDK-Kindle（v2.0／制作中）**：正式タイトル候補は『OpenAI Agents SDKで育てるAIエージェント』、副題は「売上データ分析からMulti-Agent・Docker・AWS本番運用まで」。Zenn第1〜16回相当の技術を中心に、完成コード・再現手順・検証を体系化します。**Amazon Bedrock AgentCoreは本書v2.0の対象外**です。
+- **OpenAI-SDK-Kindle（v2.0／KDPレビュー中）**：正式タイトル候補は『OpenAI Agents SDKで育てるAIエージェント』、副題は「売上データ分析からMulti-Agent・Docker・AWS本番運用まで」。**2026年10月29日（木）発売予定、価格1,250円**（10月18日時点のKDP表示）。Zenn第1〜16回相当の技術を中心に、完成コード・再現手順・検証を体系化します。**Amazon Bedrock AgentCoreは本書v2.0の対象外**です。予約注文はレビュー中のため、Amazonでの予約受付・発売は未確認です。
 - **トリアージUdemy講座4〜6**：問い合わせ業務をBUILD→VALIDATE→OPERATEまで育てる、**売上分析21回とは別題材**の実践講座です。
 - **Udemy講座7（AgentCore／別企画）**：トリアージ講座6のCompleted Source Snapshotから始め、Bedrock AgentCoreで本番運用する内容です。**OpenAI-SDK-Kindleには含めないAgentCoreの実装・運用を扱う別題材の講座**であり、書籍の動画版ではありません。
 
@@ -1709,7 +1709,7 @@ OpenAI Agents SDKの実装21回を最優先で完走します。**CrewAI連載�
 
 | 教材・連載 | 位置づけ | 公開・制作方針 |
 |---|---|---|
-| **CrewAI-Kindle** | Agent / Task / Tool / Role / Crew / Process / Flow / Evaluationの完成コード付き技術書 | 原稿とコードを検証し、品質確認後に発売を判断。Zenn21回完結を待つ必要はありません |
+| **CrewAI-Kindle** | 売上データ分析を題材に、Crew・Flow・Productionまで扱う実装書 | **2026年10月31日（土）発売予定、価格1,250円**。KDP予約注文はレビュー中（10月18日時点）。Amazon商品URLは確認後に掲載。Zenn21回完結を待たず、別商品として発売予定 |
 | **CrewAIのZenn短期連載** | ①Agent/Task/Tool ②Role・Crew ③Process ④Flow・状態・承認 ⑤Trace・Evaluation | 21回完結後に開始する5回案。2027年1月19日（火）開始は**暫定・条件付き** |
 | **CrewAI-Udemy** | 構築・失敗再現・改修を含む実践演習 | Kindleを読み上げる動画にはせず、需要と演習独自性が整った場合だけ制作 |
 | **Google ADK / LangGraph** | 次の新規FW候補 | 実装検証と比較の後で、採用する側だけを教材化。発売未決定 |
@@ -1736,10 +1736,10 @@ OpenAI Agents SDKの実装21回を最優先で完走します。**CrewAI連載�
 | 業務課題をSDDへ変える | 『AIエージェント開発のためのケーススタディ設計』 | 公開済み（下部にリンク） |
 | 業務AIエージェントの設計 | 『AIエージェント実践入門』 | 公開済み（下部にリンク） |
 | Agents SDKを小さく実装 | Zenn実装実践シリーズ全21回 | 火曜連載中。公開回のみ順次リンク追加 |
-| 売上分析Agentの第1〜16回相当の実装を体系化 | OpenAI-SDK-Kindle（v2.0） | 制作・整合確認中。AgentCoreは対象外。販売ページ確定まで購入リンクを載せない |
+| 売上分析Agentの第1〜16回相当の実装を体系化 | OpenAI-SDK-Kindle（v2.0） | 10/29（木）発売予定・KDPレビュー中。AgentCoreは対象外。Amazon商品ページ確認後にリンク追加 |
 | 問い合わせトリアージを構築・PoC・AWS本番化 | Kindle 4〜6／Udemy講座4〜6 | 対応する教材の公開状況を確認してリンクを追加 |
 | AgentCoreでトリアージAgentを運用 | Udemy講座7 | OpenAI-SDK-Kindleとは別題材・別範囲。公開後リンク追加 |
-| CrewAIの体系的実装 | CrewAI-Kindle | 品質検証後に発売判断。Udemyは条件付き |
+| CrewAIの体系的実装 | CrewAI-Kindle | 10/31（土）発売予定・KDPレビュー中。Amazon商品ページ確認後にリンク追加。Udemyは条件付き |
 | データ分析から施策・検証計画 | 分析noteハブ／データ分析Kindle | 独立した商品ライン。実装21回とは混同しない |
 
 ※ **ダミー売上データ分析KindleはAmazonで予約受付中**です（[Amazon商品ページ](https://www.amazon.co.jp/dp/B0HL4PS2QC)）。こちらはChatGPTを中心とした分析・課題解決の書籍で、OpenAI-SDK-Kindleとは別商品です。主導線は**データ分析noteハブ**とし、販売条件・発売予定日はAmazonの商品ページで確認してください。
@@ -1934,13 +1934,13 @@ ECS / Fargate版とAgentCore版を、2つのProduction Routeとして比較で�
 
 1. **最優先**：OpenAI Agents SDK第1〜21回の公開状況と個別リンクを追加（火曜連載を完走）。
 2. 対応する水曜noteが公開されたら、各技術のWhy記事と相互リンクする。
-3. **OpenAI-SDK-Kindle（v2.0）**の品質とZenn第1〜16回相当の技術範囲との整合を確認し、販売開始後に商品リンクを追加する。AgentCoreは書籍に含めない。
-4. **CrewAI-Kindle**はコードと原稿の検証を経て発売可否を判断。CrewAI Zenn5回案は21回完走後に開始条件を確認する。
+3. **OpenAI-SDK-Kindle（v2.0）**は10月29日（木）、**CrewAI-Kindle**は10月31日（土）の発売予定としてKDPレビュー中（10月18日時点）。Amazon商品ページの正式URLが確認できた段階で予約案内を追記し、発売後は状態を更新する。OpenAI-SDK-KindleにAgentCoreは含めない。
+4. **CrewAI-Kindle**の発売予定に合わせ、原稿・コードの検証を継続する。CrewAI Zenn5回案は21回完走後に開始条件を確認する。
 5. 必要に応じて**CrewAI実装ハブ**を設け、本ハブから誘導する。Google ADK・LangGraphは採用決定前にハブを量産しない。
 6. トリアージUdemy講座4〜7と対応Kindleは、公開した商品だけリンクを追加する。
 7. **AIデータ分析・課題解決noteハブ**は別ラインとして案内し、売上分析Kindleへの導線はそちらへ集約する。
 
-**運用原則**：主CTAは読者の学習目的に合うリンクを1つに絞る。未発売の商品を販売中と書かない。既存の記事URL・slugは維持する。
+**運用原則**：主CTAは読者の学習目的に合うリンクを1つに絞る。KDPレビュー中の商品を「Amazonで予約受付中」または「発売中」と書かない。正式な商品URLを確認できるまではリンクを掲載しない。既存の記事URL・slugは維持する。
 
 ---
 
