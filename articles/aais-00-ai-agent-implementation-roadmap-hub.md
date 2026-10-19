@@ -528,7 +528,7 @@ AgentCore
 
 # AIエージェント実装実践シリーズ 全21回
 
-2026年10月16日（金）時点で、**第1〜8回は公開済み、第9〜21回は公開予定**です。第8回以降は原則として**毎週火曜日に1回**公開します（第1〜7回は火曜・金曜中心の公開実績）。今後の公開予定は変更される場合があります。
+2026年10月20日（火）時点で、**第1〜9回は公開済み、第10〜21回は公開予定**です。第8回以降は原則として**毎週火曜日に1回**公開します（第1〜7回は火曜・金曜中心の公開実績）。今後の公開予定は変更される場合があります。
 
 | 回 | テーマ | 主な技術 | 状況 |
 |---:|---|---|---|
@@ -540,7 +540,7 @@ AgentCore
 | 第6回 | 危険な処理を止める | Guardrails | 公開済み |
 | 第7回 | 人の判断を入れる | HITL | 公開済み |
 | 第8回 | データを永続化する | SQLite | 公開済み |
-| 第9回 | 複数Tableを安全に扱う | Join Validation | 公開予定 |
+| 第9回 | [複数Tableを安全に扱う](https://zenn.dev/tigerone1945/articles/aais-09-multitable-join-validation) | Join Validation | 公開済み |
 | 第10回 | Agentを役割分担する | Multi-Agent | 公開予定 |
 | 第11回 | AIエージェントをAPI化する | FastAPI | 公開予定 |
 | 第12回 | 実行環境をContainer化する | Docker / Docker Compose | 公開予定 |
@@ -813,6 +813,8 @@ Join
 > **AIに自由なSQLを書かせるのではなく、安全な操作をToolとして提供する**
 
 ことです。
+
+[第9回：複数Tableを安全に扱う──Join ValidationでAIに自由なSQLを書かせない](https://zenn.dev/tigerone1945/articles/aais-09-multitable-join-validation)
 
 ---
 
@@ -2075,9 +2077,9 @@ https://www.amazon.co.jp/dp/B0HJSTH8BP
 
 ## AIエージェント実装実践シリーズ
 
-**第1〜8回は公開済みです。** 上記各回の見出しから内容と記事URLを確認できます。
+**第1〜9回は公開済みです。** 上記各回の見出しから内容と記事URLを確認できます。
 
-[第1回：Agent / Runner](https://zenn.dev/tigerone1945/articles/aais-01-agent-runner-csv-sales-data) ／ [第8回：SQLite](https://zenn.dev/tigerone1945/articles/aais-08-csv-to-sqlite)
+[第1回：Agent / Runner](https://zenn.dev/tigerone1945/articles/aais-01-agent-runner-csv-sales-data) ／ [第8回：SQLite](https://zenn.dev/tigerone1945/articles/aais-08-csv-to-sqlite) ／ [第9回：Join Validation](https://zenn.dev/tigerone1945/articles/aais-09-multitable-join-validation)
 
 ---
 
