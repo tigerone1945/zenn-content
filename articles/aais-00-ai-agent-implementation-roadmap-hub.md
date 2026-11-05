@@ -113,36 +113,15 @@ Agent
         ↓
 
 STEP 5
-業務AIエージェントを構築する
-↓
-Udemy講座4
-BUILD
+FDE-Udemy：請求書処理・問い合わせトリアージ
+As-Is → To-Be → SDD → ローカルPoC
+Streamlit＋FastAPI＋SQLite
 
         ↓
 
 STEP 6
-PoCとして検証する
-↓
-Kindle 5（PoC-Kindle）
-VALIDATE Design
-
-＋
-
-Udemy講座5
-VALIDATE Implementation
-
-        ↓
-
-STEP 7
-AWS本番環境へ育てる
-↓
-Kindle 6（Prod-Kindle）
-OPERATE Design
-
-＋
-
-Udemy講座6
-OPERATE Implementation
+AgentCore／クラウドは別枠で学習・検証
+2027年3月に将来の商品化を審査
 ```
 
 このロードマップで重要なのは、
@@ -1311,255 +1290,36 @@ Multi-Agent
 
 - **Zennの実装21回**：同じ売上・受注データを使い、Agent / Tools / Guardrails / Database / Multi-Agent / AWS / AgentCoreの実装を段階的に学びます。
 - **OpenAI-SDK-Kindle（v2.0／販売中）**：正式タイトル候補は『OpenAI Agents SDKで育てるAIエージェント』、副題は「売上データ分析からMulti-Agent・Docker・AWS本番運用まで」。**2026年10月29日（木）発売、価格1,250円、ASIN：B0HNGDT575**（10月31日時点でKDP「販売中」）。[Amazonの商品ページ](https://www.amazon.co.jp/dp/B0HNGDT575)。Zenn第1〜16回相当の技術を中心に、完成コード・再現手順・検証を体系化します。**Amazon Bedrock AgentCoreは本書v2.0の対象外**です。
-- **トリアージUdemy講座4〜6**：問い合わせ業務をBUILD→VALIDATE→OPERATEまで育てる、**売上分析21回とは別題材**の実践講座です。
-- **Udemy講座7（AgentCore／別企画）**：トリアージ講座6のCompleted Source Snapshotから始め、Bedrock AgentCoreで本番運用する内容です。**OpenAI-SDK-Kindleには含めないAgentCoreの実装・運用を扱う別題材の講座**であり、書籍の動画版ではありません。
+- **FDE-Udemy（請求書処理・問い合わせトリアージ／制作中）**：As-Is／To-Be → SDD → Agent実装・テスト → Streamlit＋FastAPI＋SQLiteの**ローカルPoC**を扱います。**Docker化・クラウドデプロイは本編に含めません**。2026年末〜2027年初頭の公開見込みですが確定日は未設定です。
+- **AgentCore／クラウド移行Udemy（別枠の将来候補）**：2027年3月までは学習・AWS実機検証が中心。ローカルPoCと実機検証の結果からGO／HOLD／NO-GOを判断します。
 
 FW別Udemyは書籍発売に合わせて自動的に作りません。開始・途中・完成スナップショット、障害再現、デバッグ、書籍にない改修演習、テスト・正解例、独立受講可能性を満たした場合に制作判断を行います。
 
 ---
 
-# STEP 5：Udemy講座4 ― BUILD
+# FDE型業務AI化｜請求書処理とトリアージ
 
-Udemy講座4では、
-
-> **完成済みSDDをコードへ変換する**
-
-ことを中心にします。
-
-題材は、問い合わせトリアージAIエージェントです。
+旧「Kindle 4〜6／Udemy講座4〜7」の独立発売計画は採用せず、FDEの業務ケーススタディを優先します。
 
 ```text
-Existing SDD
+As-Is・業務課題 → To-Be・業務ルール
 ↓
-Requirements
+Case Study／Spec／Constraints
 ↓
-Design
+SDD・Claude CodeによるAgent実装
 ↓
-Tasks
+Streamlit＋FastAPI＋SQLite
 ↓
-Python
+正常系・異常系・承認／Guardrailsの検証
 ↓
-OpenAI Agents SDK
-↓
-Test
+ローカルPoC・受講者向け教材
 ```
 
-ここでは新たにSDDを一から作ることより、
+**FDE-Udemy本編にDocker・AWS/Azure/GCPへのデプロイは含めません。** 請求書処理とトリアージを優先し、2026年末〜2027年初頭の公開を目指します。追加ケースはその後に選びます。
 
-> **Requirements → Design → Tasks → Code**
+## AgentCoreはクラウド学習・将来企画
 
-の対応を確認しながら実装することを重視します。
-
----
-
-# STEP 6：PoCとしてVALIDATEする
-
-動くAgentができたら、次はPoCです。
-
-ここでは、
-
-> **動くか**
-
-だけではなく、
-
-> **業務で価値があるか**
-
-を検証します。
-
----
-
-# Kindle 5（PoC-Kindle）：VALIDATE Design
-
-Kindle 5（PoC-Kindle）では、
-
-> **既存システムをPoCへ育てるため、SDDをどう更新するか**
-
-を扱います。
-
-```text
-Existing Implementation
-↓
-Current Implementation Analysis
-↓
-PoC Change Request
-↓
-Updated System Specification
-↓
-Updated Technology Constraints
-↓
-Updated Requirements
-↓
-Updated Design
-↓
-Updated Tasks
-↓
-Regression Test Plan
-↓
-PoC Evaluation Plan
-```
-
-PoC化とは、単にWeb画面を追加することではありません。
-
-> **検証可能性をシステムへ追加すること**
-
-だと考えています。
-
----
-
-# Udemy講座5：VALIDATE Implementation
-
-Kindle 5（PoC-Kindle）で作成したUpdated SDDに従い、
-
-```text
-FastAPI
-↓
-Streamlit
-↓
-SQLite
-↓
-Web PoC
-↓
-Evaluation
-↓
-Failure Analysis
-↓
-Go / No-Go
-```
-
-まで実際に実装します。
-
-Kindleでは、
-
-> **なぜそう変更するのか**
-
-Udemyでは、
-
-> **その変更をどう実装するのか**
-
-を扱います。
-
----
-
-# STEP 7：本番環境へOPERATEする
-
-PoCで価値を確認できたら、本番化へ進みます。
-
----
-
-# Kindle 6（Prod-Kindle）：OPERATE Design
-
-Kindle 6（Prod-Kindle）では、
-
-> **PoCをProductionへ育てるため、SDDをどう更新するか**
-
-を扱います。
-
-```text
-Validated PoC
-↓
-Production Readiness Gap
-↓
-Production Change Request
-↓
-Updated System Specification
-↓
-Updated Technology Constraints
-↓
-Updated Requirements
-↓
-Updated Design
-↓
-Updated Tasks
-↓
-Regression Test Plan
-↓
-Production Architecture
-```
-
-本番化とは、
-
-> **PoCをそのままAWSへ載せること**
-
-ではありません。
-
-必要になるのは、
-
-- Security
-- Reliability
-- Authentication / Authorization
-- Secret Management
-- Persistent Database
-- Backup / Recovery
-- Logging
-- Monitoring
-- Failure Handling
-- Version Management
-- Rollback
-- Operations
-
-などです。
-
----
-
-# Udemy講座6：OPERATE Implementation
-
-Udemy講座6では、
-
-```text
-Docker
-↓
-PostgreSQL
-↓
-Terraform
-↓
-ECR
-↓
-ECS / Fargate
-↓
-RDS
-↓
-Secrets Manager
-↓
-CloudWatch
-↓
-Regression Test
-↓
-E2E Test
-```
-
-まで実際に構築します。
-
-Zennで個別に学んだ技術を、
-
-> **実際の業務システムへ統合する**
-
-のがUdemyの役割です。
-
----
-
-# 同じ問い合わせトリアージを育て続ける
-
-Udemy講座4・5・6では、基本的に同じ問い合わせトリアージシステムを利用します。
-
-```text
-講座4
-Python Agent
-BUILD
-        ↓
-講座5
-Web PoC
-VALIDATE
-        ↓
-講座6
-AWS Production
-OPERATE
-```
-
-毎回別のサンプルを作らないことで、
-
-> **1つの業務システムが成長する過程**
-
-そのものを学べるようにします。
+2027年3月まではOpenAI Agents SDK×AgentCore Runtime等の学習と小規模AWS実機検証を優先します。Runtimeの動作、認証、監視、費用、削除手順を証跡付きで確認し、クラウド移行UdemyのGO／HOLD／NO-GOを判断します。**現時点でUdemy発売は未定**です。
 
 ---
 
@@ -1707,18 +1467,15 @@ Code
 
 ---
 
-# 次の技術シリーズ：CrewAIとフレームワーク選定
+# 次の技術シリーズ：Python-MIPを先行
 
-OpenAI Agents SDKの実装21回を最優先で完走します。**CrewAI連載を途中へ割り込ませません。**
+ZennのOpenAI Agents SDK全21回を完走した後は、CrewAIの新連載より**Python-MIPによるホテル予約の数理最適化（全6回）**を優先します。
 
-| 教材・連載 | 位置づけ | 公開・制作方針 |
-|---|---|---|
-| **CrewAI-Kindle** | 売上データ分析を題材に、Crew・Flow・Productionまで扱う実装書 | **2026年10月31日（土）発売、価格1,250円、ASIN：B0HNG2K4C8**。KDP「販売中」。[Amazonの商品ページ](https://www.amazon.co.jp/dp/B0HNG2K4C8)。Zenn21回完結を待たず、別商品として発売 |
-| **CrewAIのZenn短期連載** | ①Agent/Task/Tool ②Role・Crew ③Process ④Flow・状態・承認 ⑤Trace・Evaluation | 21回完結後に開始する5回案。2027年1月19日（火）開始は**暫定・条件付き** |
-| **CrewAI-Udemy** | 構築・失敗再現・改修を含む実践演習 | Kindleを読み上げる動画にはせず、需要と演習独自性が整った場合だけ制作 |
-| **Google ADK / LangGraph** | 次の新規FW候補 | 実装検証と比較の後で、採用する側だけを教材化。発売未決定 |
-
-**FWが人気だからという理由だけで商品を増やさない**ことを基本とします。完成コードの品質、学習成果、需要、保守負担を確認します。
+- **原稿**：[GitHub `upload_to_zenn/python_mip/`](https://github.com/tigerone1945/upload_to_zenn/tree/main/python_mip) に**全6回v1.3保存済み**。Zennには未公開（`published: false`）。
+- **検証**：2026年11月3日のローカル実行報告では全回PASS。公開前には検証時の版とv1.3の差分、校正・表示を確認します。
+- **開始日**：2027年の公開候補。**2027年1月19日（火）は確定日ではありません**。既存のZenn・note枠との調整後に決定します。
+- **ホテル予約データ分析Kindle**：2026年11月15日（日）発売予定。販売開始の確認までは発売済みと案内しません。数理最適化の教材用仮定値を実測効果と混同しません。
+- **CrewAI**：Kindleは[販売中](https://www.amazon.co.jp/dp/B0HNG2K4C8)。CrewAIの新しいZenn連載はPython-MIPの後で検討します。
 
 ---
 
@@ -1746,8 +1503,9 @@ OpenAI Agents SDKの実装21回を最優先で完走します。**CrewAI連載�
 | 業務AIエージェントの設計 | 『AIエージェント実践入門』 | 公開済み（下部にリンク） |
 | Agents SDKを小さく実装 | Zenn実装実践シリーズ全21回 | 火曜連載中。公開回のみ順次リンク追加 |
 | 売上分析Agentの第1〜16回相当の実装を体系化 | [OpenAI-SDK-Kindle（v2.0）](https://www.amazon.co.jp/dp/B0HNGDT575) | 10/29（木）発売・販売中。AgentCoreは対象外 |
-| 問い合わせトリアージを構築・PoC・AWS本番化 | Kindle 4〜6／Udemy講座4〜6 | 対応する教材の公開状況を確認してリンクを追加 |
-| AgentCoreでトリアージAgentを運用 | Udemy講座7 | OpenAI-SDK-Kindleとは別題材・別範囲。公開後リンク追加 |
+| 請求書処理・トリアージの業務AI化 | FDE-Udemy（ローカルPoC） | Streamlit＋FastAPI＋SQLite。2026年末〜2027年初頭の公開見込み、日付未確定。Docker・クラウド対象外 |
+| AgentCoreのクラウド学習 | AWS実機検証／将来の独立Udemy候補 | 2027年3月までの実機検証後に商品化判断 |
+| ホテル予約の数理最適化 | Python-MIP Zenn全6回／ホテル予約データ分析Kindle | 原稿v1.3保存、ローカル検証PASS報告済み。2027年公開日未定。Kindleは11/15発売予定 |
 | CrewAIの体系的実装 | [CrewAI-Kindle](https://www.amazon.co.jp/dp/B0HNG2K4C8) | 10/31（土）発売・販売中。Udemyは条件付き |
 | データ分析から施策・検証計画 | [データ分析noteハブ](https://note.com/loyal_hyssop7944/n/nb88b1b78960c)／データ分析Kindle | 独立した商品ライン。実装21回とは混同しない |
 
@@ -1882,58 +1640,11 @@ AgentCore
 
 ## 業務AIエージェントを実際に作りたい
 
-→ **Udemy講座4：BUILD**
+→ **FDE-Udemy（請求書処理／問い合わせトリアージ）**。As-Is／To-Be、SDD、Streamlit＋FastAPI＋SQLiteを用いたローカルPoCを教材化します。公開日は未確定です。
 
-SDDから問い合わせトリアージAIエージェントを実装します。
+## クラウドへの移行を学びたい
 
----
-
-## AIエージェントをPoC化したい
-
-→ **Kindle 5（PoC-Kindle）：VALIDATE Design**
-
-→ **Udemy講座5：VALIDATE Implementation**
-
-設計を更新し、Web PoCとして実際に評価します。
-
----
-
-## AIエージェントを本番化したい
-
-### 汎用AWS Applicationとして本番化する
-
-→ **Kindle 6（Prod-Kindle）：OPERATE Design**
-
-→ **Udemy講座6：OPERATE Implementation**
-
-Production要件を設計し、
-
-```text
-Docker
-PostgreSQL
-Terraform
-AWS
-```
-
-を使って本番システムへ発展させます。
-
-### Agent専用Managed Serviceとして本番化する
-
-→ **Zenn 第17回〜第21回：Amazon Bedrock AgentCore**
-
-```text
-Runtime
-↓
-Memory
-↓
-Gateway
-↓
-Identity
-↓
-Observability / Evaluations
-```
-
-ECS / Fargate版とAgentCore版を、2つのProduction Routeとして比較できる構成にします。
+→ Zenn第17〜21回のAgentCore技術編を読み、実機ではRuntime等から段階的に検証します。クラウドデプロイUdemyは別企画とし、2027年3月に制作可否を判断します。
 
 ---
 
@@ -1944,12 +1655,12 @@ ECS / Fargate版とAgentCore版を、2つのProduction Routeとして比較で�
 1. **最優先**：OpenAI Agents SDK第1〜21回の公開状況と個別リンクを追加（火曜連載を完走）。
 2. 対応する水曜noteが公開されたら、各技術のWhy記事と相互リンクする。
 3. **OpenAI-SDK-Kindle（v2.0）**は10月29日（木）、**CrewAI-Kindle**は10月31日（土）に発売しました（10月31日時点でKDP「販売中」）。Amazonの商品リンクは上記に掲載しています。OpenAI-SDK-KindleにAgentCoreは含めません。
-4. **CrewAI-Kindle**は発売済み。原稿・コードの更新・検証を継続する。CrewAI Zenn5回案は21回完走後に開始条件を確認する。
-5. 必要に応じて**CrewAI実装ハブ**を設け、本ハブから誘導する。Google ADK・LangGraphは採用決定前にハブを量産しない。
-6. トリアージUdemy講座4〜7と対応Kindleは、公開した商品だけリンクを追加する。
-7. **[AIデータ分析・課題解決noteハブ](https://note.com/loyal_hyssop7944/n/nb88b1b78960c)**は別ラインとして案内し、売上分析Kindleへの導線はそちらへ集約する。
+4. **Python-MIP全6回**は原稿v1.3のGitHub保存済み・2026年11月3日のローカル検証完了報告済み。2027年の公開枠と校正を調整する。
+5. **FDE-Udemy（請求書処理・トリアージ）**はローカルPoCと教材品質を優先して制作し、公開後に正式URLを追加する。
+6. **AgentCoreのクラウド実機検証**は2027年3月まで実施し、独立UdemyのGO／HOLD／NO-GOを判断する。
+7. **CrewAIの新規Zenn連載**はPython-MIPの後に検討する。データ分析noteハブとの導線は維持する。
 
-**運用原則**：主CTAは読者の学習目的に合うリンクを1つに絞る。**予約受付中と発売中を区別**し、Amazonの商品ページの実際の表示と整合させる。既存の記事URL・slugは維持する。
+**運用原則**：公開済み／予定、原稿完成／実機検証を区別し、既存の記事URLとslugを維持します。
 
 ---
 
@@ -2087,16 +1798,6 @@ https://www.amazon.co.jp/dp/B0HJSTH8BP
 
 ## Udemy
 
-問い合わせトリアージAIエージェントを題材に、
-
-```text
-BUILD
-↓
-VALIDATE
-↓
-OPERATE
-```
-
-と、1つの業務システムを段階的に育てる実装シリーズを予定しています。
+**FDE-Udemyでは請求書処理と問い合わせトリアージを題材に、As-Is／To-Be → SDD → 実装 → テスト → ローカルPoCまでの実践講座を制作中**です。Docker・クラウド化は別企画であり、発売日は未確定です。
 
 ※ 公開後リンク追加
