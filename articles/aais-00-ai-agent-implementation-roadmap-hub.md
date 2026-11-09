@@ -1476,7 +1476,7 @@ ZennのOpenAI Agents SDK全21回を完走した後は、CrewAIの新連載より
 - **原稿**：[GitHub `upload_to_zenn/python_mip/`](https://github.com/tigerone1945/upload_to_zenn/tree/main/python_mip) に**全6回v1.3保存済み**。Zennには未公開（`published: false`）。
 - **検証**：2026年11月3日のローカル実行報告では全回PASS。公開前には検証時の版とv1.3の差分、校正・表示を確認します。
 - **開始日**：2027年の公開候補。**2027年1月19日（火）は確定日ではありません**。既存のZenn・note枠との調整後に決定します。
-- **ホテル予約データ分析Kindle**：2026年11月15日（日）発売予定。販売開始の確認までは発売済みと案内しません。数理最適化の教材用仮定値を実測効果と混同しません。
+- **ホテル予約データ分析Kindle**：**『ChatGPTで学ぶホテル予約データ分析と業務課題解決：キャンセル率から改善施策・効果検証まで』は2026年11月15日（日）発売予定・[Amazonで予約注文受付中](https://www.amazon.co.jp/dp/B0HQYNZ8JF)**です。価格1,250円、ASIN `B0HQYNZ8JF`（2026年11月9日時点のAmazon・KDP表示）。**発売済みではありません。** 数理最適化の教材用仮定値を実測効果と混同しません。
 - **CrewAI**：Kindleは[販売中](https://www.amazon.co.jp/dp/B0HNG2K4C8)。CrewAIの新しいZenn連載はPython-MIPの後で検討します。
 
 ---
@@ -1507,7 +1507,7 @@ ZennのOpenAI Agents SDK全21回を完走した後は、CrewAIの新連載より
 | 売上分析Agentの第1〜16回相当の実装を体系化 | [OpenAI-SDK-Kindle（v2.0）](https://www.amazon.co.jp/dp/B0HNGDT575) | 10/29（木）発売・販売中。AgentCoreは対象外 |
 | 請求書処理・トリアージの業務AI化 | FDE-Udemy（ローカルPoC） | Streamlit＋FastAPI＋SQLite。2026年末〜2027年初頭の公開見込み、日付未確定。Docker・クラウド対象外 |
 | AgentCoreのクラウド学習 | AWS実機検証／将来の独立Udemy候補 | 2027年3月までの実機検証後に商品化判断 |
-| ホテル予約の数理最適化 | Python-MIP Zenn全6回／ホテル予約データ分析Kindle | 原稿v1.3保存、ローカル検証PASS報告済み。2027年公開日未定。Kindleは11/15発売予定 |
+| ホテル予約の数理最適化 | Python-MIP Zenn全6回／[ホテル予約データ分析Kindle](https://www.amazon.co.jp/dp/B0HQYNZ8JF) | Zenn原稿v1.3保存・ローカル検証PASS報告済み。2027年公開日未定。Kindleは**11/15発売予定・予約注文受付中** |
 | CrewAIの体系的実装 | [CrewAI-Kindle](https://www.amazon.co.jp/dp/B0HNG2K4C8) | 10/31（土）発売・販売中。Udemyは条件付き |
 | データ分析から施策・検証計画 | [データ分析noteハブ](https://note.com/loyal_hyssop7944/n/nb88b1b78960c)／データ分析Kindle | 独立した商品ライン。実装21回とは混同しない |
 
