@@ -12,21 +12,22 @@ published: true
 published_at: "2026-09-15 07:00"
 ---
 
-AIエージェントを学び始めると、すぐにこんな疑問が出てきます。
+AIエージェントを学び始めると、すぐに疑問が増えていきます。
 
-- まずAgentを作ればいいのか
-- SDDはどこで使うのか
-- 業務課題をどうAIエージェント設計へ落とすのか
-- Function ToolsやMulti-Agentはいつ使うのか
-- PoCと本番は何が違うのか
-- DockerやAWSはどの段階で必要になるのか
-- AIエージェントを業務システムとしてどう育てるのか
+- 最初にAgentを作ればよいのか
+- Function Toolsはいつ必要になるのか
+- Structured OutputやSessionsはなぜ必要なのか
+- GuardrailsとHuman-in-the-Loopはどう使い分けるのか
+- Multi-Agentにする判断基準は何か
+- FastAPI、Docker、PostgreSQLはどの段階で必要になるのか
+- AWSへDeployすれば本番化できたと言えるのか
+- Amazon Bedrock AgentCoreはECS/Fargateと何が違うのか
 
-個別の技術だけを追いかけていると、
+個別の技術だけを追うと、
 
 ```text
 Agent
-Function Tools
+Tools
 RAG
 Multi-Agent
 FastAPI
@@ -35,146 +36,109 @@ AWS
 AgentCore
 ```
 
-と知識がバラバラになりがちです。
+と知識がばらばらになりがちです。
 
-そこでこの記事では、これまで公開してきたKindle・Zennシリーズと、これから公開するZenn実装シリーズ・Kindle・Udemyを、
+そこでこのハブでは、
 
-> **AIエージェントを仕様から設計し、実装し、PoCを経てAWS / AgentCore本番環境へ育てるための学習ロードマップ**
+> **業務課題から仕様を作り、AIエージェントを小さく実装し、Application化し、AWS / AgentCoreまで育てるための技術ロードマップ**
 
-として整理します。
+として全体を整理します。
 
-この記事は固定記事ではありません。
-
-今後公開するZenn・Kindle・Udemyに合わせてリンクを追加していく、**AIエージェント学習全体のハブ記事**として更新していきます。
+このページは固定記事ではありません。  
+公開したZenn記事・Kindle・学習資産に合わせて、リンクと位置づけを更新していきます。
 
 ---
 
-# 全体ロードマップ
+# まず全体像
 
-まずは全体像です。
+現在の学習ルートは、次の4段階で考えています。
 
 ```text
 STEP 1
-SDDを体系的に学ぶ
+業務課題と仕様を整理する
 ↓
-Kindle
-AI時代の仕様駆動開発
-Kiro・Claude Codeで学ぶ
-System Specification Design（SDD）の教科書
-
-        ↓
+SDD / Case Study / System Specification
 
 STEP 2
-業務課題をケーススタディへ落とす
+AIエージェントを小さく実装する
 ↓
-Kindle
-AIエージェント開発のためのケーススタディ設計
-
-As-Is / To-Be
-→ Case Study
-→ System Specification
-→ Kiro Spec
-
-        ↓
+Zenn AIエージェント実装実践 第1〜21回
 
 STEP 3
-AIエージェント設計へ適用する
+本番運用の2ルートを比較する
 ↓
-Zenn
-AIエージェント設計シリーズ
-
-＋
-
-Kindle
-AIエージェント実践入門
-公開済み
-
-        ↓
+ECS / Fargate
+または
+Amazon Bedrock AgentCore
 
 STEP 4
-AIエージェント技術を小さく実装する
+次の技術テーマへ進む
 ↓
-Zenn
-AIエージェント実装実践シリーズ
-第1回〜第21回
-
-Agent
-→ Tools
-→ HITL
-→ DB
-→ Multi-Agent
-→ API
-→ Docker
-→ PostgreSQL
-→ Terraform
-→ AWS
-→ AgentCore
-
-        ↓
-
-STEP 5
-FDE-Udemy：請求書処理・問い合わせトリアージ
-As-Is → To-Be → SDD → ローカルPoC
-Streamlit＋FastAPI＋SQLite
-
-        ↓
-
-STEP 6
-AgentCore／クラウドは別枠で学習・検証
-2027年3月に将来の商品化を審査
+Python-MIPによる数理最適化
 ```
 
-このロードマップで重要なのは、
+ここで重要なのは、
 
-> **設計・技術学習・業務実装・PoC・本番化を、同じものとして扱わない**
+> **設計・技術学習・業務PoC・本番運用を、同じものとして扱わない**
 
 ことです。
 
-それぞれ学習目的が違います。
-
 ---
 
-# Zenn・note・Kindle・Udemyの役割（2026年10月改訂）
+# Zenn・note・Kindle・Udemyの役割
 
-学習する技術と解決したい業務課題によって、入口と教材の役割を分けています。
+現在は、各媒体を次のように分けています。
 
-| 媒体 | 主な役割 | 読者が得るもの |
+| 媒体 | 役割 | 主に扱うこと |
 |---|---|---|
-| **Zenn** | 技術のHow | OpenAI Agents SDKなどを、1記事1テーマで小さく実装する手順 |
-| **note（水曜）** | 設計のWhy | なぜその技術が必要か、どこに境界や責務を設けるか |
-| **note（日曜）** | 業務課題・選定 | 導入判断、FW選択、データ分析から施策・効果検証まで |
-| **Kindle（FW別）** | 体系的な実装教材 | 動く完成コード、設計、再現手順、検証結果を一冊で学べる |
-| **Kindle（データ分析）** | 業務課題の解決 | ChatGPT中心の分析、原因仮説、改善施策、効果検証計画まで |
-| **Udemy** | 独自の実践演習 | 構築の過程、エラー調査、自力での改修。需要と差別化がある場合に制作 |
+| **Zenn** | 技術資産・How | 実装、コード、検証、技術選定 |
+| **note** | 集客・Why / What | 業務課題、判断、設計、導入 |
+| **Kindle** | 体系化 | 一つのテーマを順序立てて学ぶ |
+| **Udemy** | ケース実践 | 実務システムを手を動かして作る |
 
-**Kindle＝設計だけ、Udemy＝実装だけ、という区分ではありません。**
-FW別Kindleは書籍だけで再現できる実装教材とし、Udemyは動画ならではのデバッグや要件変更演習で差別化します。
+Zennは「集客量」を主目的にせず、
 
-例えばFastAPIは、Zennで単独の実装要点を確認し、Kindleで構成・完成コードと再現方法を学び、必要ならUdemyで実装・失敗・改善を体験する関係です。
+> **技術を深く確認したい人が戻ってこられる資産**
 
-**このハブは「AIエージェントの実装・学習」の総合入口**です。業務課題・自動化の境界・設計判断の「Why」は、[AIエージェントは、何を設計すべきか？（note設計・活用ハブ）](https://note.com/loyal_hyssop7944/n/n111ba3f53507)へ。データ分析から施策立案までを扱うシリーズは、[データ分析は「集計した」で終わっていないか？（noteデータ分析・課題解決ハブ）](https://note.com/loyal_hyssop7944/n/nb88b1b78960c)を主導線とします。どちらのnoteハブも2026年10月19日（月）に公開済みです。
+として使います。
 
 ---
 
-# STEP 1：まずSDDを体系的に学ぶ
+# STEP 1：業務課題から仕様へ
 
 AIエージェント開発でも、最初からAgentを書くのではなく、
 
-> **何を作るのかを仕様として定義する**
+> **何を作るのか、なぜ作るのか、どこまでAIへ任せるのか**
 
-ことが重要です。
+を整理することが重要です。
 
-その土台として位置づけているのが、公開済みのKindleです。
+考え方は、
+
+```text
+Business Problem
+↓
+As-Is
+↓
+Pain Point
+↓
+To-Be
+↓
+System Specification
+↓
+Technology Constraints
+↓
+SDD
+↓
+Agent Design
+```
+
+です。
+
+この土台は、次のKindleで体系化しています。
 
 ## 『AI時代の仕様駆動開発』
 
-**Kiro・Claude Codeで学ぶ System Specification Design（SDD）の教科書**
-
-Amazon：
-
 https://www.amazon.co.jp/dp/B0HBQ32KCQ
-
-この本では、AI時代の仕様駆動開発として、
 
 ```text
 System Specification
@@ -188,60 +152,16 @@ Tasks
 Implementation
 ```
 
-という流れを体系的に扱います。
-
-AIコーディングツールを使えば、コード自体は以前より速く生成できます。
-
-しかし、
-
-> **何を作るのか**
-
-が曖昧なままでは、生成速度が上がっても正しいシステムにはなりません。
-
-そのため、AI時代ほど、
-
-```text
-Specification
-↓
-Design
-↓
-Implementation
-```
-
-という流れが重要になります。
-
-この本は、後続のAIエージェント開発を理解するための**SDDの基礎編**に位置づけています。
-
----
-
-# STEP 2：業務課題をケーススタディへ落とす
-
-SDDの考え方を理解した次に必要なのが、
-
-> **実際の業務課題を、どう仕様へ変換するのか**
-
-という部分です。
-
-そこで位置づけているのが、こちらの公開済みKindleです。
+という、AI時代の仕様駆動開発を扱います。
 
 ## 『AIエージェント開発のためのケーススタディ設計』
 
-**As-Is / To-BeからSystem Specification・Kiro Specへつなぐ業務設計**
-
-Amazon：
-
 https://www.amazon.co.jp/dp/B0HJMM4JF7
-
-この本では、
 
 ```text
 Business Problem
 ↓
-As-Is
-↓
-Pain Point
-↓
-To-Be
+As-Is / To-Be
 ↓
 Case Study
 ↓
@@ -250,220 +170,21 @@ System Specification
 Kiro Spec
 ```
 
-という流れを扱います。
+という、業務課題を仕様へ変換する流れを扱います。
 
-SDDを理解していても、
-
-> 「では、実際の業務課題を何から書けばいいのか」
-
-で止まることがあります。
-
-そこで、
-
-```text
-現在の業務
-↓
-課題
-↓
-改善後の業務
-↓
-AIに任せる範囲
-↓
-システム仕様
-```
-
-へ変換していきます。
-
-つまり、
-
-### SDD-Kindle
-
-では、
-
-> **仕様駆動開発そのもの**
-
-を学び、
-
-### ケーススタディ設計Kindle
-
-では、
-
-> **業務課題をSDDの入力へ変換する方法**
-
-を学ぶ、
-
-という関係です。
-
----
-
-# STEP 3：AIエージェント設計へ適用する
-
-SDDとケーススタディ設計を理解したら、次はAIエージェントへ適用します。
-
-ここで、これまでZennで公開してきた
-
-# AIエージェント設計シリーズ
-
-につながります。
-
-このシリーズでは、
-
-> **AIエージェントをどう設計するか**
-
-を個別テーマに分けて扱ってきました。
-
-考え方の基本は、
-
-```text
-Business Problem
-↓
-As-Is
-↓
-Pain Point
-↓
-To-Be
-↓
-System Specification
-↓
-Technology Constraints
-↓
-SDD
-↓
-Agent Design
-```
-
-です。
-
----
-
-# AIエージェントはAgentから考え始めない
-
-たとえば、
-
-> 問い合わせ対応をAIエージェント化したい
-
-という場合でも、いきなり、
-
-```python
-agent = Agent(...)
-```
-
-とはしません。
-
-先に、
-
-- 何が業務課題なのか
-- 現在は誰が判断しているのか
-- AIへ任せる範囲はどこか
-- 人へ戻すべき判断は何か
-- Toolが必要なのか
-- Workflowで十分なのか
-- Multi-Agentへ分ける必要があるのか
-
-を整理します。
-
-重要なのは、
-
-> **AIエージェントありきではなく、業務課題ありき**
-
-で設計することです。
-
----
-
-# AIエージェントKindleも公開
-
-ZennのAIエージェント設計シリーズで扱ってきた内容を、さらに体系化したKindleも公開しています。
-
-## AIエージェント実践入門
+## 『業務課題から学ぶ AIエージェント実践入門』
 
 https://www.amazon.co.jp/dp/B0HJSTH8BP
 
-このKindleでは、
-
-```text
-Business Problem
-↓
-Case Study
-↓
-As-Is / To-Be
-↓
-System Specification
-↓
-Technology Constraints
-↓
-SDD
-↓
-Agent Design
-↓
-OpenAI Agents SDK
-↓
-Evaluation
-```
-
-という流れで、
-
-> **業務課題を、実装可能なAIエージェントへ変換する方法**
-
-を体系的に扱います。
-
-単なるOpenAI Agents SDKの機能解説ではありません。
-
-中心にあるのは、
-
-> **技術を先に選ばず、業務課題から必要なAIエージェント構成を判断する**
-
-という考え方です。
-
-たとえば、
-
-- Single Agentで十分なのか
-- Function Toolsが必要なのか
-- RAGが必要なのか
-- Handoffを使うべきなのか
-- Multi-Agentへ分割する必要があるのか
-- Human-in-the-Loopをどこへ入れるのか
-
-といった判断を扱います。
+業務課題からAgent Design、OpenAI Agents SDK、Evaluationへ進む考え方を体系化しています。
 
 ---
 
-# 3冊のKindleの関係
+# STEP 2：AIエージェント実装実践シリーズ
 
-ここまでのKindleを整理すると、次のようになります。
+ここからがZennの中心です。
 
-| Kindle | 主な役割 | 状況 |
-|---|---|---|
-| AI時代の仕様駆動開発 | SDDそのものを学ぶ | 公開済み |
-| AIエージェント開発のためのケーススタディ設計 | 業務課題を仕様へ変換する | 公開済み |
-| AIエージェント実践入門 | SDDをAIエージェント設計へ適用する | 公開済み |
-
-学習順としては、
-
-```text
-SDDを理解する
-↓
-業務課題を仕様へ変換する
-↓
-AIエージェントへ適用する
-```
-
-となります。
-
----
-
-# STEP 4：設計から「実装」へ
-
-設計が理解できたら、次はコードへ落としていきます。
-
-ここから始めるのが、新しい
-
-# AIエージェント実装実践シリーズ
-
-です。
-
-このシリーズでは、一つの小さなサンプルを段階的に育てながら、OpenAI Agents SDKとApplication開発の主要技術を学びます。
-
-最初から完成システムは作りません。
+一つの小さなサンプルを、
 
 ```text
 Agent
@@ -472,17 +193,17 @@ Function Tools
 ↓
 Structured Output
 ↓
-Web UI
+Streamlit
 ↓
-Sessions
-↓
-Tracing
+Sessions / Tracing
 ↓
 Guardrails
 ↓
 HITL
 ↓
-Database
+SQLite
+↓
+Multi-table
 ↓
 Multi-Agent
 ↓
@@ -496,310 +217,94 @@ Terraform
 ↓
 AWS
 ↓
-Monitoring
+Monitoring / Evaluation
 ↓
 AgentCore
 ```
 
-と、一つずつ機能を追加していきます。
+と段階的に育てます。
+
+最初から完成システムは作りません。
+
+> **必要になった機能を、その理由と一緒に一つずつ追加する**
+
+ことを重視します。
 
 ---
 
 # AIエージェント実装実践シリーズ 全21回
 
-2026年11月5日（木）時点で、**第1〜11回は公開済み、第12〜21回は公開予定**です。第8回以降は原則として**毎週火曜日に1回**公開します（第1〜7回は火曜・金曜中心の公開実績）。今後の公開予定は変更される場合があります。
-
-| 回 | テーマ | 主な技術 | 状況 |
-|---:|---|---|---|
-| 第1回 | 最小AIエージェントを作る | Agent / Runner | 公開済み |
-| 第2回 | 処理をToolへ分離する | Function Tools | 公開済み |
-| 第3回 | 出力を構造化する | Structured Output / Pydantic | 公開済み |
-| 第4回 | Web画面を作る | Streamlit | 公開済み |
-| 第5回 | 会話と実行を追跡する | Sessions / Tracing | 公開済み |
-| 第6回 | 危険な処理を止める | Guardrails | 公開済み |
-| 第7回 | 人の判断を入れる | HITL | 公開済み |
-| 第8回 | データを永続化する | SQLite | 公開済み |
-| 第9回 | [複数Tableを安全に扱う](https://zenn.dev/tigerone1945/articles/aais-09-multitable-join-validation) | Join Validation | 公開済み |
-| 第10回 | [Agentを役割分担する](https://zenn.dev/tigerone1945/articles/aais-10-multiagent-manager-pattern) | Multi-Agent | 公開済み |
-| 第11回 | [AIエージェントをAPI化する](https://zenn.dev/tigerone1945/articles/aais-11-fastapi-agent-api) | FastAPI | 公開済み |
-| 第12回 | 実行環境をContainer化する | Docker / Docker Compose | 公開予定 |
-| 第13回 | 本番DBへ移行する | PostgreSQL | 公開予定 |
-| 第14回 | AWS基盤をコード化する | Terraform | 公開予定 |
-| 第15回 | AWSへデプロイする | ECR / ECS / Fargate / RDS | 公開予定 |
-| 第16回 | 本番環境を監視する | CloudWatch / Secrets / Evaluation | 公開予定 |
-| 第17回 | AgentCore Runtimeへ載せる | AgentCore Runtime / AgentCore CLI | 公開予定 |
-| 第18回 | 記憶を管理する | AgentCore Memory | 公開予定 |
-| 第19回 | ToolをManaged化する | AgentCore Gateway | 公開予定 |
-| 第20回 | 誰の権限で呼ぶかを設計する | AgentCore Identity | 公開予定 |
-| 第21回 | 監視・評価を運用Loopにする | AgentCore Observability / Evaluations | 公開予定 |
+| 回 | テーマ | 主な技術 |
+|---:|---|---|
+| 第1回 | 最小AIエージェントを作る | Agent / Runner |
+| 第2回 | 処理をToolへ分離する | Function Tools |
+| 第3回 | 出力を構造化する | Structured Output / Pydantic |
+| 第4回 | Web画面を作る | Streamlit |
+| 第5回 | 会話と実行を追跡する | Sessions / Tracing |
+| 第6回 | 危険な処理を止める | Guardrails |
+| 第7回 | 人の判断を入れる | HITL |
+| 第8回 | 業務データを永続化する | SQLite |
+| 第9回 | 複数Tableを安全に扱う | Multi-table / Join Validation |
+| 第10回 | Agentを役割分担する | Multi-Agent |
+| 第11回 | AIエージェントをAPI化する | FastAPI |
+| 第12回 | 実行環境をContainer化する | Docker / Docker Compose |
+| 第13回 | 本番DBへ移行する | PostgreSQL |
+| 第14回 | AWS基盤をコード化する | Terraform |
+| 第15回 | AWSへDeployする | ECR / ECS / Fargate / RDS |
+| 第16回 | 本番環境を監視・評価する | CloudWatch / Secrets / Evaluation |
+| 第17回 | Agent専用Runtimeへ載せる | AgentCore Runtime |
+| 第18回 | 記憶を管理する | AgentCore Memory |
+| 第19回 | Tool接続を外へ出す | AgentCore Gateway |
+| 第20回 | 誰の権限で呼ぶかを設計する | AgentCore Identity |
+| 第21回 | 監視・評価を改善Loopへ戻す | AgentCore Observability / Evaluations |
 
 ---
 
-# 第1回：最小AIエージェントを作る
+# Phase 1：Single AgentをApplicationへ近づける
 
-最初は極力シンプルにします。
+第1〜9回です。
 
 ```text
-User
-↓
 Agent
 ↓
-Response
+Tools
+↓
+Structured Output
+↓
+UI
+↓
+Session
+↓
+Guardrails
+↓
+HITL
+↓
+Database
 ```
 
-扱うのは、
+ここで重要なのは、
 
-- Agent
-- Instructions
-- Runner
-- Result
-
-です。
-
-目的は、
-
-> **OpenAI Agents SDKでAgentが動く最小構成を理解する**
+> **LLMへすべて任せない**
 
 ことです。
 
-https://zenn.dev/tigerone1945/articles/aais-01-agent-runner-csv-sales-data
-
----
-
-# 第2回：Function Toolsへ処理を分離する
-
-AIエージェントに、すべてをLLMだけで処理させるわけではありません。
-
 ```text
-Agent
-↓
-Function Tool
-↓
-Python
-↓
-Result
-↓
-Agent
+LLM
+＝Reasoning / Interpretation
+
+Code
+＝Calculation / Rule / Constraint
 ```
 
 と分けます。
 
-重要なのは、
-
-> **LLMが考える部分と、コードで確実に処理する部分を分離する**
-
-ことです。
-
-https://zenn.dev/tigerone1945/articles/aais-02-function-tools-pandas-csv-analysis
+売上計算や閾値判定、Database Constraintのように決定的に処理できるものは、Codeへ寄せます。
 
 ---
 
-# 第3回：Structured Outputで出力を安定させる
+# Phase 2：Multi-Agentは責務が分かれたときだけ使う
 
-自然言語だけでは、後続のApplicationから利用しにくくなります。
-
-そこで、
-
-```text
-Agent
-↓
-Pydantic Model
-↓
-Structured Output
-```
-
-とします。
-
-たとえば、
-
-```text
-result
-confidence
-reason
-next_action
-```
-
-のように、出力構造を定義します。
-
-https://zenn.dev/tigerone1945/articles/aais-03-structured-output-pydantic
-
----
-
-# 第4回：StreamlitでWeb画面を作る
-
-CLIだけでは、実際の利用者には使いにくい場合があります。
-
-そこで、
-
-```text
-Browser
-↓
-Streamlit
-↓
-Agent
-```
-
-へ発展させます。
-
-ここから、
-
-> **Agentそのものだけでなく、人が使うApplication**
-
-として考え始めます。
-
-https://zenn.dev/tigerone1945/articles/aais-04-streamlit-web-ui
-
----
-
-# 第5回：SessionsとTracingを追加する
-
-次に、
-
-> 前の会話を覚えてほしい
-
-という要求が出てきます。
-
-そこでSessionsを使います。
-
-一方、
-
-> Agentが内部で何をしたのか確認したい
-
-場合に使うのがTracingです。
-
-```text
-Sessions
-＝会話を継続する
-
-Tracing
-＝実行を追跡する
-```
-
-役割は異なります。
-
-https://zenn.dev/tigerone1945/articles/aais-05-sessions-tracing
-
----
-
-# 第6回：Guardrailsで危険な処理を止める
-
-AIエージェントを業務で利用する場合、
-
-> Instructionsに「やらないでください」と書く
-
-だけでは不十分です。
-
-そこでGuardrailsを導入します。
-
-- 不適切な入力
-- 対象外の要求
-- 危険な出力
-- 禁止された処理
-
-などを制御します。
-
-https://zenn.dev/tigerone1945/articles/aais-06-guardrails
-
----
-
-# 第7回：Human-in-the-Loopを入れる
-
-AIエージェントのゴールは、必ずしも完全自動化ではありません。
-
-```text
-AI
-↓
-Decision
-↓
-Low Risk → Automatic
-High Risk → Human Review
-```
-
-という構成も重要です。
-
-ここでは、
-
-- Approval
-- Reject
-- Resume
-- Human Decision
-
-を扱います。
-
-https://zenn.dev/tigerone1945/articles/aais-07-human-in-the-loop
-
----
-
-# 第8回：SQLiteでデータを永続化する
-
-次に、
-
-```text
-一回実行
-↓
-終了
-```
-
-ではなく、
-
-```text
-実行結果
-↓
-Database
-↓
-再利用
-```
-
-へ進みます。
-
-ここではSQLiteを使います。
-
-SQLiteは、小規模ApplicationやPoCで扱いやすいデータベースです。
-
-
-[第8回：CSVからSQLiteへ──AIエージェントの業務データを永続化する](https://zenn.dev/tigerone1945/articles/aais-08-csv-to-sqlite)
-
----
-
-# 第9回：複数Tableを安全に扱う
-
-業務データは、1つのTableだけとは限りません。
-
-```text
-customers
-orders
-products
-```
-
-のような複数Tableを扱う場合、
-
-```text
-Join候補
-↓
-Join Key確認
-↓
-Validation
-↓
-Preview
-↓
-Join
-```
-
-という流れが必要になります。
-
-重要なのは、
-
-> **AIに自由なSQLを書かせるのではなく、安全な操作をToolとして提供する**
-
-ことです。
-
-[第9回：複数Tableを安全に扱う──Join ValidationでAIに自由なSQLを書かせない](https://zenn.dev/tigerone1945/articles/aais-09-multitable-join-validation)
-
----
-
-# 第10回：Multi-Agentへ発展させる
-
-Agentの責務が大きくなってきたら、役割を分けます。
+第10回です。
 
 ```text
 Manager Agent
@@ -808,40 +313,23 @@ Manager Agent
 └─ Specialist Agent C
 ```
 
-ここでは、
+Multi-Agentの目的は、
 
-- Manager Pattern
-- Agents as Tools
-- Agent Responsibility
-- Multi-Agent Design
+> **Agentを増やすこと**
 
-を扱います。
+ではありません。
 
-重要なのは、
+> **責務を分離すること**
 
-> **最初からMulti-Agentにしない**
+です。
 
-ことです。
-
-Single Agentで責務が大きくなったときに、必要な部分だけ分離します。
-
-[第10回：Agentを役割分担する──Manager PatternでMulti-Agent化する](https://zenn.dev/tigerone1945/articles/aais-10-multiagent-manager-pattern)
+Single Agentで十分なら、無理に分けません。
 
 ---
 
-# 第11回：FastAPIでAPI化する
+# Phase 3：AgentをApplicationへ組み込む
 
-ここからAIエージェントをApplicationとして考えます。
-
-Before：
-
-```text
-Streamlit
-↓
-Agent
-```
-
-After：
+第11〜13回です。
 
 ```text
 Streamlit
@@ -849,112 +337,32 @@ Streamlit
 FastAPI
 ↓
 Agent
-```
-
-とします。
-
-これによりFrontendとAgent Runtimeを分離できます。
-
-[第11回：AIエージェントをFastAPIでAPI化する──UIとAgentの境界を分離する](https://zenn.dev/tigerone1945/articles/aais-11-fastapi-agent-api)
-
-扱うのは、
-
-- FastAPI
-- Endpoint
-- Request / Response
-- Pydantic
-- Service Layer
-- API Boundary
-
-です。
-
----
-
-# 第12回：Dockerで実行環境を固定する
-
-ローカル環境だけで動いている状態から、
-
-> 自分のPCでは動く
-
-を卒業します。
-
-```text
-Docker Compose
-├─ frontend
-│  └─ Streamlit
-│
-└─ backend
-   └─ FastAPI + Agents SDK
-```
-
-ここでの目的はDockerを極めることではありません。
-
-> **AIエージェントを実行環境から独立させる**
-
-ことです。
-
----
-
-# 第13回：PostgreSQLへ移行する
-
-SQLiteから、
-
-```text
-SQLite
+↓
+Repository
 ↓
 PostgreSQL
 ```
 
-へ移行します。
-
-Architectureも、
+ここで、
 
 ```text
-Agent
-↓
-Tool
-↓
-Repository
-↓
-Database
+Agent Design
+≠
+Application Design
 ```
 
-とし、AgentがDB製品そのものへ強く依存しない構成を考えます。
+がはっきりしてきます。
 
-ここから本番Applicationを意識します。
+FastAPIはUIとAI処理を分け、Dockerは実行環境を固定し、PostgreSQLは共有Data Layerを持つために追加します。
 
 ---
 
-# 第14回：TerraformでAWS基盤を作る
+# Phase 4：汎用AWS Applicationとして本番化する
 
-ここからCloudへ進みます。
-
-想定するAWS構成は、
+第14〜16回です。
 
 ```text
-ECR
-ECS / Fargate
-RDS
-Secrets Manager
-CloudWatch
-```
-
-などです。
-
-AWS Consoleだけで構築するのではなく、
-
-> **TerraformでInfrastructure as Codeとして定義する**
-
-ことを学びます。
-
----
-
-# 第15回：AIエージェントをAWSへデプロイする
-
-ローカルで育ててきたAIエージェントをAWSへ移します。
-
-```text
-Docker Image
+Terraform
 ↓
 ECR
 ↓
@@ -965,77 +373,59 @@ FastAPI
 Agents SDK
 ↓
 RDS PostgreSQL
+↓
+CloudWatch
 ```
 
-第1回ではローカルで動くだけだったAgentが、
+第14回ではInfrastructure as Code、第15回ではAWS Deploy、第16回ではSecrets・Monitoring・Tracing・Evaluationを扱います。
 
-> **Cloud上で動くApplication**
+重要なのは、
 
-になります。
+> **Deployできたことと、運用できることは別**
 
-この回がシリーズの大きな到達点です。
-
----
-
-# 第16回：本番AIエージェントを監視する
-
-AWSへデプロイできても、それだけでは運用できません。
-
-そこで、
+という点です。
 
 ```text
-CloudWatch
-Secrets Manager
-Tracing
-Application Log
-Error
-Latency
+Deploy
+↓
+Secrets
+↓
+Logs / Metrics / Tracing
+↓
 Evaluation
+↓
+Backup / Rollback
 ```
 
-を扱います。
-
-ECS / Fargate版の最終的なイメージは、
-
-```text
-User
-↓
-Frontend
-↓
-FastAPI
-↓
-AI Agent
-↓
-Function Tools
-↓
-PostgreSQL / RDS
-↓
-Tracing / Logging
-↓
-Docker
-↓
-ECS / Fargate
-↓
-CloudWatch
-```
-
-です。
-
-第1回の小さなAgentを、
-
-> **運用を意識したAI Application**
-
-まで育てます。
-
-ここまでが、汎用的なAWS ApplicationとしてAIエージェントを本番化するルートです。
-
-第17回からは、同じAgentを**Agent専用のManaged Service**で本番化するもう一つのルートを扱います。
+まで考えて、Production Readinessへ進みます。
 
 ---
 
-# 第17回：AgentCore Runtimeへ載せる
+# Phase 5：AgentCoreでAgent Nativeな本番ルートを学ぶ
 
-第16回までのAgentを、Amazon Bedrock AgentCore Runtimeへ載せます。
+第17〜21回です。
+
+第16回までで、ECS / Fargateを使った汎用AWS Applicationとしての本番ルートを作ります。
+
+そのうえで、第17回からは、
+
+> **Agent専用Managed Serviceを使う別のProduction Route**
+
+を学びます。
+
+```text
+Runtime
+↓
+Memory
+↓
+Gateway
+↓
+Identity
+↓
+Observability / Evaluations
+```
+
+## 第17回：Runtime
 
 ```text
 OpenAI Agents SDK
@@ -1045,337 +435,135 @@ BedrockAgentCoreApp
 AgentCore Runtime
 ```
 
-既存のAgent本体は書き直さず、外側にRuntime Adapter（`app.py`）を追加するだけです。
+既存Agent本体を書き直すのではなく、Runtime Adapterを追加します。
 
-Entrypointも外部入力の入口として、入力検証とエラー処理を入れます。
-
-開発の流れは、
+ここで比較するのは、
 
 ```text
-agentcore dev
-↓
-agentcore deploy
-↓
-agentcore invoke
+汎用Application Runtime
+vs
+Agent Native Runtime
 ```
 
 です。
 
-ECS / Fargateと置き換えるのではなく、
-
-> **汎用AWS Application**と**Agent向けManaged Service**を、2つのProduction Routeとして比較する
-
-ことがこの回のテーマです。
-
-AWS SDKからの呼び出し（Timeout・Retry・IAM）や、RDSへの接続経路も整理します。
-
----
-
-# 第18回：AgentCore Memoryで記憶を管理する
-
-第5回のSessionsは、同じ会話の文脈を保つ仕組みでした。
-
-しかし、
-
-> **「同じ会話を覚える」と「次の会話でも覚えている」は別**
-
-です。
+## 第18回：Memory
 
 ```text
 Session
-↓
-Short-term Memory
-↓
+＝今の会話
+
 Long-term Memory
+＝次回も使うKnowledge
+
+Business Fact
+＝Database
 ```
 
-のように記憶を分け、何を保存し、何を保存しないかをMemory Policyとして設計します。
+と責務を分けます。
 
-売上の数値のように変化するBusiness FactはDBを正とし、Memoryには好みなどの安定した情報だけを残します。
+何を覚えるかだけでなく、何を保存しないかも設計します。
 
-MemoryとRAGの違い、Memoryが取れなくてもAgentが動く設計も整理します。
-
----
-
-# 第19回：AgentCore GatewayでToolをManaged化する
-
-これまでToolはAgentのコード内にFunction Toolとして持っていました。
-
-第19回では、Toolの接続をGatewayへ切り出します。
+## 第19回：Gateway
 
 ```text
 Agent
 ↓
-AgentCore Gateway
+Gateway
 ↓
 Tool / API
 ```
 
-GatewayのEndpointはMCP Serverとして扱えます。Side Effectを伴う`create_review_request`をLambda Toolとして切り出し、AgentからMCP経由で呼び出します。
+外部Service、Side Effect、共有Tool、認証が必要なToolをAgent Codeから分離します。
 
-ただし、Toolをすべて移す必要はありません。
+Local ToolをすべてGateway化するわけではありません。
+
+## 第20回：Identity
 
 ```text
-Local Tool
-Gateway Tool
+User Identity
+Agent Workload Identity
+External Service Credential
 ```
 
-のどちらへ置くかを、判断基準として整理します。
+を分けます。
 
-第7回のHuman-in-the-Loopとのつなぎ方も扱います。
+AuthenticationとAuthorizationをPromptではなくSystem Designとして扱います。
+
+## 第21回：Observability / Evaluations
+
+```text
+Production
+↓
+Failure Detection
+↓
+Trace Analysis
+↓
+Evaluation
+↓
+Failure Case
+↓
+Fix
+↓
+Regression Evaluation
+↓
+Deploy
+```
+
+という改善Loopを作ります。
+
+見つけた失敗をEvaluation Caseへ戻すことが、継続改善の中心です。
 
 ---
 
-# 第20回：AgentCore Identityで「誰の権限で呼ぶか」を設計する
+# ECS/FargateとAgentCoreは「どちらが上か」ではない
 
-Toolを外部へつなぐと、
+このシリーズでは、二つを比較できるようにします。
 
-> **誰の権限で、そのToolを呼ぶのか**
+| 観点 | ECS / Fargate | AgentCore |
+|---|---|---|
+| 中心 | 汎用Application | Agent Runtime |
+| 実行単位 | Container / Task | Agent |
+| Network / Runtime | 自分で設計 | Agent向けManaged |
+| Memory / Gateway / Identity | 自分で組み合わせる | Agent向けCapability |
+| 向くケース | 既存AWS Application標準がある | Agent中心のManaged構成を使いたい |
 
-が問題になります。
+判断基準は、
 
-```text
-Inbound Auth
-誰がAgentを呼ぶか
+> **何を自分で設計し、何をManaged Serviceへ任せるか**
 
-Outbound Auth
-Agentが誰として外部Toolを呼ぶか
-```
-
-を分けて考え、API Keyの直書きをやめてCredential Providerへ移します。
-
-権限の判定はPromptではなくCodeで行う、という原則も扱います。
-
-第16回のSecrets Managerとの違い、OAuth Consent、Workload Identity、Gateway・Identity・HITLの役割分担も整理します。
+です。
 
 ---
 
-# 第21回：AgentCore ObservabilityとEvaluationsで監視・評価する
+# 第1〜21回を通して学びたいこと
 
-最後に、第16回で行った監視と評価を、AgentCoreのManaged Capabilityで拡張して比較します。
-
-```text
-Runtime
-Memory
-Gateway
-Identity
-↓
-Observability
-↓
-Evaluations
-↓
-改善
-```
-
-Traceから遅延やErrorの原因の層（Runtime / Gateway / Memory / Auth）を絞り込みます。
-
-Custom Evaluatorで売上分析Agent向けの評価軸を作り、Code-basedとLLM-as-a-Judgeを使い分けたうえで、
+重要なのは技術名ではありません。
 
 ```text
-観測する
-評価する
-改善する
+責務を分ける
+境界を作る
+危険な処理を制御する
+状態を管理する
+実行を追跡する
+評価できるようにする
 ```
 
-というLoopを回します。見つけた失敗はEvaluation Caseへ戻します。
+ことです。
 
-第1回の小さなAgentが、
+シリーズ全体の中心メッセージは、
 
-> **ECS / Fargate版とAgentCore版、2つの本番ルートを比較できるAI Application**
+> **AIエージェントを業務システムにするとは、LLMを呼び出すことではなく、LLMをシステムの中に安全に配置すること**
 
-まで育ちます。
+です。
 
 ---
 
-# 実装シリーズは5つのPhaseで進む
+# STEP 3：業務ケース実践はFDEシリーズへ分ける
 
-21回を大きく分けると、次の5段階になります。
-
-## Phase 1：Single Agent
+以前は、問い合わせトリアージを題材に、
 
 ```text
-第1回 Agent
-↓
-第2回 Function Tools
-↓
-第3回 Structured Output
-↓
-第4回 Streamlit
-↓
-第5回 Sessions / Tracing
-↓
-第6回 Guardrails
-↓
-第7回 HITL
-↓
-第8回 SQLite
-↓
-第9回 Multi-table
-```
-
-まず、1つのAgentを利用可能なApplicationへ近づけます。
-
----
-
-## Phase 2：Multi-Agent
-
-```text
-第10回
-Multi-Agent
-```
-
-必要になった責務だけを分離します。
-
----
-
-## Phase 3：Application
-
-```text
-第11回 FastAPI
-↓
-第12回 Docker
-↓
-第13回 PostgreSQL
-```
-
-ここから、
-
-> **AIエージェント開発**
-
-から、
-
-> **AIエージェントを組み込んだApplication開発**
-
-へ進みます。
-
----
-
-## Phase 4：Production
-
-```text
-第14回 Terraform
-↓
-第15回 AWS Deploy
-↓
-第16回 Monitoring
-```
-
-> **ローカルで動くAgentをCloud上で運用できる構成へ育てる**
-
-ところまで進みます。
-
----
-
-## Phase 5：AgentCore
-
-```text
-第17回 Runtime
-↓
-第18回 Memory
-↓
-第19回 Gateway
-↓
-第20回 Identity
-↓
-第21回 Observability / Evaluations
-```
-
-同じAgentを、
-
-> **Agent専用のManaged Serviceで本番化するもう一つのルート**
-
-として比較します。
-
----
-
-# Kindle・Zenn・Udemyは何が違うか
-
-- **Zennの実装21回**：同じ売上・受注データを使い、Agent / Tools / Guardrails / Database / Multi-Agent / AWS / AgentCoreの実装を段階的に学びます。
-- **OpenAI-SDK-Kindle（v2.0／販売中）**：正式タイトル候補は『OpenAI Agents SDKで育てるAIエージェント』、副題は「売上データ分析からMulti-Agent・Docker・AWS本番運用まで」。**2026年10月29日（木）発売、価格1,250円、ASIN：B0HNGDT575**（10月31日時点でKDP「販売中」）。[Amazonの商品ページ](https://www.amazon.co.jp/dp/B0HNGDT575)。Zenn第1〜16回相当の技術を中心に、完成コード・再現手順・検証を体系化します。**Amazon Bedrock AgentCoreは本書v2.0の対象外**です。
-- **FDE-Udemy（請求書処理・問い合わせトリアージ／制作中）**：As-Is／To-Be → SDD → Agent実装・テスト → Streamlit＋FastAPI＋SQLiteの**ローカルPoC**を扱います。**Docker化・クラウドデプロイは本編に含めません**。2026年末〜2027年初頭の公開見込みですが確定日は未設定です。
-- **AgentCore／クラウド移行Udemy（別枠の将来候補）**：2027年3月までは学習・AWS実機検証が中心。ローカルPoCと実機検証の結果からGO／HOLD／NO-GOを判断します。
-
-FW別Udemyは書籍発売に合わせて自動的に作りません。開始・途中・完成スナップショット、障害再現、デバッグ、書籍にない改修演習、テスト・正解例、独立受講可能性を満たした場合に制作判断を行います。
-
----
-
-# FDE型業務AI化｜請求書処理とトリアージ
-
-旧「Kindle 4〜6／Udemy講座4〜7」の独立発売計画は採用せず、FDEの業務ケーススタディを優先します。
-
-```text
-As-Is・業務課題 → To-Be・業務ルール
-↓
-Case Study／Spec／Constraints
-↓
-SDD・Claude CodeによるAgent実装
-↓
-Streamlit＋FastAPI＋SQLite
-↓
-正常系・異常系・承認／Guardrailsの検証
-↓
-ローカルPoC・受講者向け教材
-```
-
-**FDE-Udemy本編にDocker・AWS/Azure/GCPへのデプロイは含めません。** 請求書処理とトリアージを優先し、2026年末〜2027年初頭の公開を目指します。追加ケースはその後に選びます。
-
-## AgentCoreはクラウド学習・将来企画
-
-2027年3月まではOpenAI Agents SDK×AgentCore Runtime等の学習と小規模AWS実機検証を優先します。Runtimeの動作、認証、監視、費用、削除手順を証跡付きで確認し、クラウド移行UdemyのGO／HOLD／NO-GOを判断します。**現時点でUdemy発売は未定**です。
-
----
-
-# 技術を学ぶ順番と、業務システムを育てる順番は違う
-
-AIエージェント技術だけを見ると、
-
-```text
-Agent
-↓
-Function Tools
-↓
-Structured Output
-↓
-Sessions
-↓
-Tracing
-↓
-Guardrails
-↓
-HITL
-↓
-Database
-↓
-Multi-Agent
-↓
-API
-↓
-Docker
-↓
-PostgreSQL
-↓
-AWS
-↓
-Monitoring
-↓
-AgentCore Runtime
-↓
-Memory / Gateway / Identity
-↓
-Observability / Evaluations
-```
-
-という順番で学べます。
-
-これがZenn実装シリーズです。
-
-一方、実際の業務システムでは、
-
-```text
-Business Problem
-↓
-Specification
-↓
 BUILD
 ↓
 VALIDATE
@@ -1383,239 +571,293 @@ VALIDATE
 OPERATE
 ```
 
-という流れになります。
+とUdemy講座4〜6へ展開する計画を置いていました。
 
-こちらがKindle・Udemy側のストーリーです。
+この計画は現在の方針では採用していません。
 
-この2つは似ていますが、同じではありません。
+今後の業務ケース実践は、**FDE（Forward Deployed Engineer）型のケーススタディ**として再編します。
 
----
+主な題材は、
 
-# AIにすべて任せることがゴールではない
-
-AIエージェントという言葉から、
-
-> AIがすべて自動で処理する
-
-というイメージを持つかもしれません。
-
-しかし業務システムでは、
-
-```text
-AI
-↓
-Confidence / Risk
-↓
-Low Risk
-→ Automatic
-
-High Risk
-→ Human Review
-```
-
-という構成が重要になることがあります。
-
-特に、
-
-- 金額に関わる判断
-- 顧客への重要な回答
-- 契約
-- 審査
-- 業務ルール
-- 経営判断
-
-では、
-
-> **AIが正しく人へ戻せること**
-
-も重要な能力です。
-
----
-
-# AIが考える部分とコードで決める部分を分ける
-
-シリーズ全体を通して重視する考え方の1つです。
-
-LLMが得意なのは、
-
-- 文脈理解
-- 分類
-- 意味解釈
-- 仮説生成
-- 要約
-- 提案
+- 請求書処理（支払前確認）
+- 問い合わせトリアージ
 
 です。
 
-一方、
-
-- 数値計算
-- 閾値判定
-- Business Rule
-- Database Constraint
-- Security Check
-
-などは、決定論的コードの方が適しています。
-
-```text
-LLM
-＝Reasoning / Interpretation
-
-Code
-＝Calculation / Rule / Constraint
-```
-
-この境界を意識します。
-
----
-
-# 次の技術シリーズ：Python-MIPを先行
-
-ZennのOpenAI Agents SDK全21回を完走した後は、CrewAIの新連載より**Python-MIPによるホテル予約の数理最適化（全6回）**を優先します。
-
-- **原稿**：[GitHub `upload_to_zenn/python_mip/`](https://github.com/tigerone1945/upload_to_zenn/tree/main/python_mip) に**全6回v1.3保存済み**。Zennには未公開（`published: false`）。
-- **検証**：2026年11月3日のローカル実行報告では全回PASS。公開前には検証時の版とv1.3の差分、校正・表示を確認します。
-- **開始日**：2027年の公開候補。**2027年1月19日（火）は確定日ではありません**。既存のZenn・note枠との調整後に決定します。
-- **ホテル予約データ分析Kindle**：**『ChatGPTで学ぶホテル予約データ分析と業務課題解決：キャンセル率から改善施策・効果検証まで』は2026年11月15日（日）発売予定・[Amazonで予約注文受付中](https://www.amazon.co.jp/dp/B0HQYNZ8JF)**です。価格1,250円、ASIN `B0HQYNZ8JF`（2026年11月9日時点のAmazon・KDP表示）。**発売済みではありません。** 数理最適化の教材用仮定値を実測効果と混同しません。
-- **CrewAI**：Kindleは[販売中](https://www.amazon.co.jp/dp/B0HNG2K4C8)。CrewAIの新しいZenn連載はPython-MIPの後で検討します。
-
----
-
-# noteと別ハブへの導線
-
-水曜noteでは、火曜Zennのコードを転載せず、「なぜ必要か」「何をAIに任せてよいか」「業務のどこに境界を置くか」を説明します。2026年10月は入門編を継続し、11月4日（水）・11日（水）・18日（水）は過去のZenn回を複数まとめた設計記事、**11月25日（水）から火曜Zennと1対1同期する計画**です。
-
-日曜noteは独立した業務設計・FW比較・データ分析の記事を扱います。**データ分析は別ライン**として、記事→「AIデータ分析・課題解決 noteハブ」→業務課題別Kindleへ誘導します。
-
-公開済みのnoteハブ：
-
-- [AIエージェントは、何を設計すべきか？｜業務課題・自動化・本番運用の実践ガイド](https://note.com/loyal_hyssop7944/n/n111ba3f53507)
-- [データ分析は「集計した」で終わっていないか？｜AIデータ分析・課題解決ガイド](https://note.com/loyal_hyssop7944/n/nb88b1b78960c)
-
-両ハブは2026年10月19日（月）公開済みです。今後の個別note記事は、公開後に正式URLを確認して追加します。
-
----
-
-# 商品の選び方と現在の計画
-
-| 学びたいこと | 主な教材・商品 | 状態・注意点 |
-|---|---|---|
-| 仕様駆動開発の考え方 | 『AI時代の仕様駆動開発』 | 公開済み（下部にリンク） |
-| 業務課題をSDDへ変える | 『AIエージェント開発のためのケーススタディ設計』 | 公開済み（下部にリンク） |
-| 業務AIエージェントの設計 | 『AIエージェント実践入門』 | 公開済み（下部にリンク） |
-| Agents SDKを小さく実装 | Zenn実装実践シリーズ全21回 | 火曜連載中。公開回のみ順次リンク追加 |
-| 売上分析Agentの第1〜16回相当の実装を体系化 | [OpenAI-SDK-Kindle（v2.0）](https://www.amazon.co.jp/dp/B0HNGDT575) | 10/29（木）発売・販売中。AgentCoreは対象外 |
-| 請求書処理・トリアージの業務AI化 | FDE-Udemy（ローカルPoC） | Streamlit＋FastAPI＋SQLite。2026年末〜2027年初頭の公開見込み、日付未確定。Docker・クラウド対象外 |
-| AgentCoreのクラウド学習 | AWS実機検証／将来の独立Udemy候補 | 2027年3月までの実機検証後に商品化判断 |
-| ホテル予約の数理最適化 | Python-MIP Zenn全6回／[ホテル予約データ分析Kindle](https://www.amazon.co.jp/dp/B0HQYNZ8JF) | Zenn原稿v1.3保存・ローカル検証PASS報告済み。2027年公開日未定。Kindleは**11/15発売予定・予約注文受付中** |
-| CrewAIの体系的実装 | [CrewAI-Kindle](https://www.amazon.co.jp/dp/B0HNG2K4C8) | 10/31（土）発売・販売中。Udemyは条件付き |
-| データ分析から施策・検証計画 | [データ分析noteハブ](https://note.com/loyal_hyssop7944/n/nb88b1b78960c)／データ分析Kindle | 独立した商品ライン。実装21回とは混同しない |
-
-※ **『ChatGPTで学ぶ問題解決型データ分析 実践入門』は2026年10月27日（火）発売、価格1,250円、ASIN：B0HL4PS2QCで販売中**です（10月31日時点でKDP「販売中」／[Amazon商品ページ](https://www.amazon.co.jp/dp/B0HL4PS2QC)）。300件の受注データを使ったChatGPT中心の分析・施策立案・効果評価計画を扱います。**OpenAI-SDK-Kindle・CrewAI-Kindleとは別の商品**です。主導線は**データ分析noteハブ**とします。
-
-# このハブ記事の使い方
-
-目的に応じて、読む場所を選んでください。
-
----
-
-## SDDそのものを学びたい
-
-### Kindle
-**『AI時代の仕様駆動開発: Kiro・Claude Codeで学ぶ System Specification Design（SDD）の教科書』**
-
-https://www.amazon.co.jp/dp/B0HBQ32KCQ
-
-```text
-System Specification
-↓
-Requirements
-↓
-Design
-↓
-Tasks
-↓
-Implementation
-```
-
-を体系的に学びます。
-
----
-
-## 業務課題を仕様へ変換したい
-
-### Kindle
-**『AIエージェント開発のためのケーススタディ設計: As-Is / To-BeからSystem Specification・Kiro Specへつなぐ業務設計』**
-
-https://www.amazon.co.jp/dp/B0HJMM4JF7
-
-```text
-As-Is
-↓
-Pain Point
-↓
-To-Be
-↓
-Case Study
-↓
-System Specification
-↓
-Kiro Spec
-```
-
-を扱います。
-
----
-
-## AIエージェントの設計を学びたい
-
-→ **Zenn AIエージェント設計シリーズ**
-
-https://zenn.dev/tigerone1945/articles/aad-00-hub-system-specification-series
-
----
-
-## AIエージェント開発を体系的に学びたい
-
-### Kindle
-**AIエージェント実践入門**
-
-https://www.amazon.co.jp/dp/B0HJSTH8BP
+FDE-Udemyでは、
 
 ```text
 Business Problem
+↓
+As-Is
+↓
+To-Be
 ↓
 System Specification
 ↓
 SDD
 ↓
+Agent Implementation
+↓
+Test
+↓
+Local PoC
+```
+
+までを扱います。
+
+技術構成は、
+
+```text
+Streamlit
+＋
+FastAPI
+＋
+SQLite
+```
+
+を基本とし、**Docker化・AWS Deploy・PostgreSQL本番運用はFDE-Udemyには含めません。**
+
+クラウド運用は、Zenn第14〜21回や別の技術学習ルートで扱います。
+
+> **技術を学ぶZennと、業務ケースを実装するFDEを分ける**
+
+ことで、目的を明確にします。
+
+---
+
+# STEP 4：第21回の次はPython-MIPを優先する
+
+AIエージェント実装実践シリーズ第1〜21回を完走したあと、新しい技術連載として優先する候補は、
+
+> **Python-MIPによるビジネス数理最適化**
+
+です。
+
+CrewAIの新規Zenn連載を先に割り込ませるのではなく、既に原稿・検証資産があるPython-MIPを先に公開する方針です。
+
+題材はホテル予約データです。
+
+```text
+データ分析
+↓
+課題発見
+↓
+原因仮説
+↓
+改善施策
+↓
+数理モデル
+↓
+最適化
+↓
+意思決定
+```
+
+へ進みます。
+
+全6回の原稿は作成済みで、GitHubの
+
+`python_mip/`
+
+を正本として管理しています。
+
+2027年の公開候補ですが、**公開開始日は現時点で固定しません。**
+
+既存のZenn第1〜21回を完走し、投稿枠との整合を確認してから開始します。
+
+---
+
+# ホテル予約データ分析とPython-MIPの関係
+
+ホテル予約データ分析は、
+
+> **何が起きているか、なぜ起きている可能性があるか、何を改善するか**
+
+を考える学習です。
+
+その先のPython-MIPでは、
+
+> **限られた予算・客室数・キャンセル率などの制約の中で、どの施策へどれだけ資源を配分するか**
+
+を扱います。
+
+つまり、
+
+```text
+Data Analysis
+＝What / Why
+
+Mathematical Optimization
+＝Act / Decide under Constraints
+```
+
+という関係です。
+
+ホテル予約データ分析Kindleは、2026年11月15日に販売開始しています。
+
+**『ChatGPTで学ぶホテル予約データ分析と業務課題解決：キャンセル率から改善施策・効果検証まで』**
+
+https://www.amazon.co.jp/dp/B0HQYNZ8JF
+
+ただし、このZennハブの主目的は商品紹介ではなく、**技術学習ルートを整理すること**です。
+
+---
+
+# CrewAIはどうするか
+
+CrewAIそのものをやめるわけではありません。
+
+既存のCrewAI Kindleや学習資産は維持します。
+
+ただし、新しいZenn技術連載の優先順位は、
+
+```text
+OpenAI Agents SDK 第1〜21回を完走
+↓
+Python-MIP
+↓
+CrewAI等の次Frameworkを再評価
+```
+
+とします。
+
+Frameworkは流行だけで選ばず、
+
+- 学習価値
+- 既存資産
+- 読者需要
+- 実務ケースへの接続
+- 制作負荷
+
+を見て判断します。
+
+---
+
+# AgentCoreは「商品化を急ぐ」より先に検証する
+
+AgentCoreは第17〜21回で学びます。
+
+さらに2027年3月までは、
+
+> **実機学習・小規模検証を優先**
+
+します。
+
+Runtime、Memory、Gateway、Identity、Observability / Evaluationsについて、実際に使える範囲と既存AWS構成との差を確認します。
+
+この検証結果を見て、
+
+- AgentCore特化Udemy
+- Cloud Deployment講座
+- FDEケースのCloud版
+
+などをGo / Hold / No-Goで判断します。
+
+最初から商品化を前提にしません。
+
+---
+
+# 現在の学習・制作ロードマップ
+
+```text
+2026
+OpenAI Agents SDK 第1〜21回を継続
+↓
+ECS/Fargate本番ルート
+＋
+AgentCore本番ルート
+
+並行
+↓
+FDEケース
+請求書処理 / トリアージ
+Local PoC
+
+2027
+↓
+Python-MIP Zenn全6回を優先公開
+↓
+AgentCore実機検証を継続
+↓
+CrewAI / 次Framework / Cloud講座を再評価
+```
+
+---
+
+# このハブの使い方
+
+## AIエージェントの設計から学びたい
+
+### Kindle
+**『業務課題から学ぶ AIエージェント実践入門』**
+
+https://www.amazon.co.jp/dp/B0HJSTH8BP
+
+## SDDそのものを学びたい
+
+### Kindle
+**『AI時代の仕様駆動開発』**
+
+https://www.amazon.co.jp/dp/B0HBQ32KCQ
+
+## 業務課題を仕様へ変えたい
+
+### Kindle
+**『AIエージェント開発のためのケーススタディ設計』**
+
+https://www.amazon.co.jp/dp/B0HJMM4JF7
+
+## OpenAI Agents SDKを実装しながら学びたい
+
+→ **このZenn実装実践シリーズ 第1〜21回**
+
+第1回：
+
+https://zenn.dev/tigerone1945/articles/aais-01-agent-runner-csv-sales-data
+
+## 業務ケースを実装したい
+
+→ **FDEケーススタディ**
+
+請求書処理・問い合わせトリアージを、Streamlit + FastAPI + SQLiteのローカルPoCまで実装します。
+
+## 数理最適化へ進みたい
+
+→ **Python-MIPシリーズ**
+
+ホテル予約データを題材に、分析結果を制約付き意思決定へつなげます。2027年公開候補です。
+
+---
+
+# 今後の更新
+
+このハブでは今後、次を更新します。
+
+- AIエージェント実装実践 第1〜21回の公開状況とリンク
+- 第17〜21回 AgentCoreの実機検証結果
+- Python-MIP全6回の公開開始日とリンク
+- FDEケーススタディの公開状況
+- 次Frameworkを採用する場合の判断結果
+
+公開済み事実と計画は分けて記載します。
+
+---
+
+# まとめ
+
+現在のロードマップは、
+
+```text
+Business Problem
+↓
+System Specification / SDD
+↓
 Agent Design
 ↓
 OpenAI Agents SDK
 ↓
-Evaluation
-```
-
-までを体系的に扱います。
-
----
-
-## AIエージェント技術を実装しながら学びたい
-
-→ **Zenn AIエージェント実装実践シリーズ**
-
-第1回から第21回まで、
-
-```text
-Agent
-↓
-Tools
-↓
-Web
-↓
-Safety
-↓
-HITL
+Tools / Safety / HITL
 ↓
 Database
 ↓
@@ -1631,175 +873,36 @@ Terraform
 ↓
 AWS
 ↓
-Monitoring
+Monitoring / Evaluation
 ↓
 AgentCore
 ```
 
-と段階的に進みます。
+と進みます。
 
----
+ここまでが、
 
-## 業務AIエージェントを実際に作りたい
+> **AIエージェントを業務Applicationとして育てる技術ルート**
 
-→ **FDE-Udemy（請求書処理／問い合わせトリアージ）**。As-Is／To-Be、SDD、Streamlit＋FastAPI＋SQLiteを用いたローカルPoCを教材化します。公開日は未確定です。
+です。
 
-## クラウドへの移行を学びたい
-
-→ Zenn第17〜21回のAgentCore技術編を読み、実機ではRuntime等から段階的に検証します。クラウドデプロイUdemyは別企画とし、2027年3月に制作可否を判断します。
-
----
-
-# 今後の更新予定
-
-このハブは**新しい記事・商品が公開されたときに更新する常設の総合入口**です。
-
-1. **最優先**：OpenAI Agents SDK第1〜21回の公開状況と個別リンクを追加（火曜連載を完走）。
-2. 対応する水曜noteが公開されたら、各技術のWhy記事と相互リンクする。
-3. **OpenAI-SDK-Kindle（v2.0）**は10月29日（木）、**CrewAI-Kindle**は10月31日（土）に発売しました（10月31日時点でKDP「販売中」）。Amazonの商品リンクは上記に掲載しています。OpenAI-SDK-KindleにAgentCoreは含めません。
-4. **Python-MIP全6回**は原稿v1.3のGitHub保存済み・2026年11月3日のローカル検証完了報告済み。2027年の公開枠と校正を調整する。
-5. **FDE-Udemy（請求書処理・トリアージ）**はローカルPoCと教材品質を優先して制作し、公開後に正式URLを追加する。
-6. **AgentCoreのクラウド実機検証**は2027年3月まで実施し、独立UdemyのGO／HOLD／NO-GOを判断する。
-7. **CrewAIの新規Zenn連載**はPython-MIPの後に検討する。データ分析noteハブとの導線は維持する。
-
-**運用原則**：公開済み／予定、原稿完成／実機検証を区別し、既存の記事URLとslugを維持します。
-
----
-
-# まとめ
-
-AIエージェント開発は、
+その後は、
 
 ```text
-Agentを作る
+業務ケース実践
+→ FDE
+
+分析結果から意思決定へ
+→ Python-MIP
+
+Agent Native Cloud
+→ AgentCore実機検証
 ```
 
-だけでは終わりません。
+と、目的別に分岐します。
 
-全体では、
+大切なのは、技術を増やすことではありません。
 
-```text
-SDDを理解する
-↓
-業務課題を仕様へ変換する
-↓
-AIエージェントを設計する
-↓
-小さく実装する
-↓
-Tools / Safety / HITLを追加する
-↓
-Databaseへ接続する
-↓
-Multi-Agentへ発展させる
-↓
-API化する
-↓
-Docker化する
-↓
-PostgreSQLへ移行する
-↓
-TerraformでAWS基盤を作る
-↓
-AWSへデプロイする
-↓
-監視・運用する
-↓
-AgentCore Runtimeへ載せる
-↓
-Memory / Gateway / Identityを設計する
-↓
-Observability / Evaluationsで改善Loopを回す
-```
+> **何を解決したいのかに応じて、必要な設計・技術・運用を選ぶこと。**
 
-まで続きます。
-
-この学習ロードマップでは、
-
-```text
-SDD-Kindle
-↓
-ケーススタディ設計Kindle
-↓
-Zenn AIエージェント設計シリーズ
-↓
-AIエージェント実践入門 Kindle
-↓
-Zenn AIエージェント実装実践シリーズ
-↓
-Udemy BUILD
-↓
-Kindle / Udemy VALIDATE
-↓
-Kindle / Udemy OPERATE
-```
-
-という流れで、
-
-> **AIエージェントを「作る」のではなく、業務システムとして「育てる」**
-
-ことを目指します。
-
-現在、
-
-# AIエージェント実装実践シリーズ
-
-を順次公開しています。
-
-第1回の
-
-> **最小構成から始めるAIエージェント実装**
-
-から小さなAgentを育て、第16回でAWS上の運用へ、第17〜21回でAgentCoreを使ったもう一つの本番ルートへつなげていきます。
-
-https://zenn.dev/tigerone1945/articles/aais-01-agent-runner-csv-sales-data
-
----
-
-# 次に読む
-
-## SDDを学ぶ
-
-**『AI時代の仕様駆動開発: Kiro・Claude Codeで学ぶ System Specification Design（SDD）の教科書』**
-
-https://www.amazon.co.jp/dp/B0HBQ32KCQ
-
----
-
-## 業務課題を仕様へ変換する
-
-**『AIエージェント開発のためのケーススタディ設計: As-Is / To-BeからSystem Specification・Kiro Specへつなぐ業務設計』**
-
-https://www.amazon.co.jp/dp/B0HJMM4JF7
-
----
-
-## AIエージェント設計シリーズ
-
-AIエージェントの設計から学びたい方はこちら。
-
-https://zenn.dev/tigerone1945/articles/aad-00-hub-system-specification-series
-
----
-
-## AIエージェント実践入門 Kindle
-
-https://www.amazon.co.jp/dp/B0HJSTH8BP
-
-業務課題・SDD・Agent Design・OpenAI Agents SDK・Evaluationまでを体系的に扱います。
-
----
-
-## AIエージェント実装実践シリーズ
-
-**第1〜11回は公開済みです。** 上記各回の見出しから内容と記事URLを確認できます。
-
-[第1回：Agent / Runner](https://zenn.dev/tigerone1945/articles/aais-01-agent-runner-csv-sales-data) ／ [第8回：SQLite](https://zenn.dev/tigerone1945/articles/aais-08-csv-to-sqlite) ／ [第9回：Join Validation](https://zenn.dev/tigerone1945/articles/aais-09-multitable-join-validation) ／ [第10回：Multi-Agent](https://zenn.dev/tigerone1945/articles/aais-10-multiagent-manager-pattern) ／ [第11回：FastAPI](https://zenn.dev/tigerone1945/articles/aais-11-fastapi-agent-api)
-
----
-
-## Udemy
-
-**FDE-Udemyでは請求書処理と問い合わせトリアージを題材に、As-Is／To-Be → SDD → 実装 → テスト → ローカルPoCまでの実践講座を制作中**です。Docker・クラウド化は別企画であり、発売日は未確定です。
-
-※ 公開後リンク追加
+このハブを、その判断に戻るための技術ロードマップとして更新していきます。
